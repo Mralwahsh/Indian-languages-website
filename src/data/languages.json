@@ -1,0 +1,178 @@
+{
+  "_meta": {
+    "speakersSource": "Census of India 2011, first-language speakers (rounded). TODO: verify each figure.",
+    "note": "name = English name (reference), nameAr = shown in the UI. helloPronunciationAr = how the greeting sounds, written in Arabic letters.",
+    "families": {
+      "indo-aryan": { "name": "Indo-Aryan", "nameAr": "الهندية الآرية", "color": "#ff9933", "blurb": "أقارب الفارسية ومعظم اللغات الأوروبية" },
+      "dravidian": { "name": "Dravidian", "nameAr": "الدرافيدية", "color": "#138808", "blurb": "لغات جنوب الهند الأصلية، عمرها آلاف السنين" },
+      "tibeto-burman": { "name": "Tibeto-Burman", "nameAr": "التبتية البورمية", "color": "#2c3ba8", "blurb": "أقارب التبتية والبورمية" },
+      "austroasiatic": { "name": "Austroasiatic", "nameAr": "الأسترو آسيوية", "color": "#9c2a4b", "blurb": "أقارب الفيتنامية والخميرية" }
+    }
+  },
+  "languages": [
+    {
+      "id": "hindi", "name": "Hindi", "nameAr": "الهندية", "nativeName": "हिन्दी", "script": "devanagari", "family": "indo-aryan", "scheduled": true,
+      "speakersApprox": 528000000, "helloNative": "नमस्ते", "helloPronunciation": "namaste", "helloPronunciationAr": "نَمَستي",
+      "funFacts": [
+        "أكثر لغة يتحدثها الناس في الهند، لكن أقل من نصف الهنود لغتهم الأم هي الهندية.",
+        "أخذت الهندية مئات الكلمات من العربية والفارسية: كتاب، دنيا، وقت…"
+      ]
+    },
+    {
+      "id": "bengali", "name": "Bengali", "nameAr": "البنغالية", "nativeName": "বাংলা", "script": "bengali", "family": "indo-aryan", "scheduled": true,
+      "speakersApprox": 97000000, "helloNative": "নমস্কার", "helloPronunciation": "nomoshkar", "helloPronunciationAr": "نوموشكار",
+      "funFacts": [
+        "ثاني أكثر لغة انتشارًا في الهند، واللغة الرسمية لبنغلاديش.",
+        "كتب الشاعر طاغور النشيدَين الوطنيَّين للهند وبنغلاديش."
+      ]
+    },
+    {
+      "id": "marathi", "name": "Marathi", "nameAr": "الماراثية", "nativeName": "मराठी", "script": "devanagari", "family": "indo-aryan", "scheduled": true,
+      "speakersApprox": 83000000, "helloNative": "नमस्कार", "helloPronunciation": "namaskār", "helloPronunciationAr": "نَمَسكار",
+      "funFacts": [
+        "تُكتب بالخط الديفاناغاري مثل الهندية، لكنها لغة مختلفة.",
+        "لغة مدينة مومباي، موطن بوليوود."
+      ]
+    },
+    {
+      "id": "telugu", "name": "Telugu", "nameAr": "التيلوغوية", "nativeName": "తెలుగు", "script": "telugu", "family": "dravidian", "scheduled": true,
+      "speakersApprox": 81000000, "helloNative": "నమస్కారం", "helloPronunciation": "namaskāram", "helloPronunciationAr": "نَمَسكارَم",
+      "funFacts": [
+        "تُلقَّب بـ«إيطالية الشرق» لأن معظم كلماتها تنتهي بحرف علّة. TODO: verify",
+        "حروفها المستديرة قريبة جدًا من حروف الكنادية."
+      ]
+    },
+    {
+      "id": "tamil", "name": "Tamil", "nameAr": "التاميلية", "nativeName": "தமிழ்", "script": "tamil", "family": "dravidian", "scheduled": true,
+      "speakersApprox": 69000000, "helloNative": "வணக்கம்", "helloPronunciation": "vaṇakkam", "helloPronunciationAr": "وَنَكَّم",
+      "funFacts": [
+        "عمر الشعر التاميلي أكثر من 2000 سنة، فهي من أقدم اللغات الحيّة في العالم.",
+        "لغة رسمية أيضًا في سريلانكا وسنغافورة."
+      ]
+    },
+    {
+      "id": "gujarati", "name": "Gujarati", "nameAr": "الغوجاراتية", "nativeName": "ગુજરાતી", "script": "gujarati", "family": "indo-aryan", "scheduled": true,
+      "speakersApprox": 55000000, "helloNative": "નમસ્તે", "helloPronunciation": "namaste", "helloPronunciationAr": "نَمَستي",
+      "funFacts": [
+        "خط الغوجاراتية يشبه الديفاناغاري لكن بلا الخط الأفقي في الأعلى!",
+        "لغة المهاتما غاندي الأم."
+      ]
+    },
+    {
+      "id": "urdu", "name": "Urdu", "nameAr": "الأردية", "nativeName": "اردو", "script": "urdu", "family": "indo-aryan", "scheduled": true,
+      "speakersApprox": 51000000, "helloNative": "آداب", "helloPronunciation": "ādāb", "helloPronunciationAr": "آداب",
+      "funFacts": [
+        "الأردية والهندية في الكلام تكادان تكونان لغة واحدة؛ الخط فقط مختلف.",
+        "تُكتب من اليمين إلى اليسار بخط النستعليق المنساب."
+      ]
+    },
+    {
+      "id": "kannada", "name": "Kannada", "nameAr": "الكنادية", "nativeName": "ಕನ್ನಡ", "script": "kannada", "family": "dravidian", "scheduled": true,
+      "speakersApprox": 44000000, "helloNative": "ನಮಸ್ಕಾರ", "helloPronunciation": "namaskāra", "helloPronunciationAr": "نَمَسكارا",
+      "funFacts": [
+        "عمر نقوشها المكتوبة أكثر من 1500 سنة. TODO: verify",
+        "مدينة بنغالور، عاصمة التكنولوجيا في الهند، تتحدث الكنادية."
+      ]
+    },
+    {
+      "id": "odia", "name": "Odia", "nameAr": "الأوديا", "nativeName": "ଓଡ଼ିଆ", "script": "odia", "family": "indo-aryan", "scheduled": true,
+      "speakersApprox": 37500000, "helloNative": "ନମସ୍କାର", "helloPronunciation": "namaskāra", "helloPronunciationAr": "نَمَسكارا",
+      "funFacts": [
+        "حروف الأوديا مستديرة لأنها كانت تُحفر على أوراق النخيل، والخطوط المستقيمة كانت تمزّق الورقة! TODO: verify"
+      ]
+    },
+    {
+      "id": "malayalam", "name": "Malayalam", "nameAr": "المالايالامية", "nativeName": "മലയാളം", "script": "malayalam", "family": "dravidian", "scheduled": true,
+      "speakersApprox": 35000000, "helloNative": "നമസ്കാരം", "helloPronunciation": "namaskāram", "helloPronunciationAr": "نَمَسكارَم",
+      "funFacts": [
+        "اسمها بالإنجليزية «Malayalam» يُقرأ من الجهتين بالشكل نفسه!",
+        "في أبجديتها أكثر من 50 حرفًا."
+      ]
+    },
+    {
+      "id": "punjabi", "name": "Punjabi", "nameAr": "البنجابية", "nativeName": "ਪੰਜਾਬੀ", "script": "gurmukhi", "family": "indo-aryan", "scheduled": true,
+      "speakersApprox": 33000000, "helloNative": "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", "helloPronunciation": "sat srī akāl", "helloPronunciationAr": "سَت سري أكال",
+      "funFacts": [
+        "البنجابية لغة نغمية: طبقة الصوت قد تغيّر معنى الكلمة!",
+        "في الهند تُكتب بخط الغورموخي، وفي باكستان بالحروف العربية."
+      ]
+    },
+    {
+      "id": "assamese", "name": "Assamese", "nameAr": "الآسامية", "nativeName": "অসমীয়া", "script": "assamese", "family": "indo-aryan", "scheduled": true,
+      "speakersApprox": 15000000, "helloNative": "নমস্কাৰ", "helloPronunciation": "nomoskar", "helloPronunciationAr": "نوموسكار",
+      "funFacts": [
+        "تستخدم تقريبًا خط البنغالية نفسه، لكن لها حرفها الخاص ৰ لصوت «ر»."
+      ]
+    },
+    {
+      "id": "maithili", "name": "Maithili", "nameAr": "الميثيلية", "nativeName": "मैथिली", "script": "devanagari", "family": "indo-aryan", "scheduled": true,
+      "speakersApprox": 13600000, "helloNative": "प्रणाम", "helloPronunciation": "praṇām", "helloPronunciationAr": "بْرَنام",
+      "funFacts": [
+        "كانت تُكتب بخطها الخاص «تيرهوتا»، واليوم غالبًا بالديفاناغاري."
+      ]
+    },
+    {
+      "id": "santali", "name": "Santali", "nameAr": "السانتالية", "nativeName": "ᱥᱟᱱᱛᱟᱲᱤ", "script": "olchiki", "family": "austroasiatic", "scheduled": true,
+      "speakersApprox": 7400000, "helloNative": "ᱡᱚᱦᱟᱨ", "helloPronunciation": "johar", "helloPronunciationAr": "جوهار",
+      "funFacts": [
+        "لها خطها الخاص «أول تشيكي»، اخترعه راغوناث مورمو عام 1925. TODO: verify greeting spelling"
+      ]
+    },
+    {
+      "id": "kashmiri", "name": "Kashmiri", "nameAr": "الكشميرية", "nativeName": "کٲشُر", "script": "urdu", "family": "indo-aryan", "scheduled": true,
+      "speakersApprox": 6800000, "helloNative": "آداب", "helloPronunciation": "ādāb", "helloPronunciationAr": "آداب",
+      "funFacts": [
+        "من اللغات الهندية القليلة التي تُكتب أساسًا بالحروف العربية. TODO: verify greeting"
+      ]
+    },
+    {
+      "id": "nepali", "name": "Nepali", "nameAr": "النيبالية", "nativeName": "नेपाली", "script": "devanagari", "family": "indo-aryan", "scheduled": true,
+      "speakersApprox": 2900000, "helloNative": "नमस्ते", "helloPronunciation": "namaste", "helloPronunciationAr": "نَمَستي",
+      "funFacts": [
+        "لغة نيبال الرسمية هي أيضًا اللغة الرئيسية في ولاية سيكيم الهندية."
+      ]
+    },
+    {
+      "id": "konkani", "name": "Konkani", "nameAr": "الكونكانية", "nativeName": "कोंकणी", "script": "devanagari", "family": "indo-aryan", "scheduled": true,
+      "speakersApprox": 2300000, "helloNative": "नमस्कार", "helloPronunciation": "namaskār", "helloPronunciationAr": "نَمَسكار",
+      "funFacts": [
+        "تُكتب بخمسة خطوط: الديفاناغاري واللاتيني والكنادي والمالايالامي والعربي! TODO: verify"
+      ]
+    },
+    {
+      "id": "meitei", "name": "Manipuri (Meitei)", "nameAr": "المانيبورية", "nativeName": "ꯃꯤꯇꯩꯂꯣꯟ", "script": "meitei", "family": "tibeto-burman", "scheduled": true,
+      "speakersApprox": 1760000, "helloNative": "ꯈꯨꯔꯨꯝꯖꯔꯤ", "helloPronunciation": "khurumjari", "helloPronunciationAr": "خورومجَري",
+      "funFacts": [
+        "خطها «ميتي ماييك» يسمّي حروفه بأسماء أجزاء جسم الإنسان! TODO: verify"
+      ]
+    },
+    {
+      "id": "ladakhi", "name": "Ladakhi", "nameAr": "اللداخية", "nativeName": "ལ་དྭགས་སྐད་", "script": "tibetan", "family": "tibeto-burman", "scheduled": false,
+      "speakersApprox": 130000, "helloNative": "ཇུ་ལེ", "helloPronunciation": "jullay", "helloPronunciationAr": "جولّي",
+      "funFacts": [
+        "كلمة «جولّي» تعني: مرحبا، ومع السلامة، ومن فضلك، وشكرًا! TODO: verify speakers and spelling"
+      ]
+    },
+    {
+      "id": "mizo", "name": "Mizo", "nameAr": "الميزو", "nativeName": "Mizo ṭawng", "script": "latin", "family": "tibeto-burman", "scheduled": false,
+      "speakersApprox": 830000, "helloNative": "Chibai", "helloPronunciation": "chi-bai", "helloPronunciationAr": "تشيباي",
+      "funFacts": [
+        "تُكتب بالحروف اللاتينية، نفس حروف الإنجليزية!"
+      ]
+    },
+    {
+      "id": "khasi", "name": "Khasi", "nameAr": "الخاسية", "nativeName": "Ka Ktien Khasi", "script": "latin", "family": "austroasiatic", "scheduled": false,
+      "speakersApprox": 1430000, "helloNative": "Kumno", "helloPronunciation": "kum-no", "helloPronunciationAr": "كومنو",
+      "funFacts": [
+        "الخاسية قريبة بعيدة للفيتنامية والخميرية (لغة كمبوديا)! TODO: verify greeting"
+      ]
+    },
+    {
+      "id": "nagamese", "name": "Nagamese", "nameAr": "الناغامية", "nativeName": "Nagamese", "script": "latin", "family": "indo-aryan", "scheduled": false,
+      "speakersApprox": null, "helloNative": "Kineka ase?", "helloPronunciation": "ki-ne-ka a-se", "helloPronunciationAr": "كينيكا آسي؟",
+      "funFacts": [
+        "لغة «جسر» مبنية على الآسامية، تستخدمها قبائل الناغا التي لكلٍّ منها لغتها الخاصة. TODO: verify greeting"
+      ]
+    }
+  ]
+}

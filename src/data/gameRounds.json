@@ -1,0 +1,37 @@
+{
+  "_meta": {
+    "note": "Each game picks 5 random words. For each round: one target language + 3 other languages showing the same word. TODO: verify all spellings.",
+    "roundsPerGame": 5,
+    "secondsPerRound": 6
+  },
+  "languages": [
+    { "id": "hindi", "name": "Hindi", "nameAr": "الهندية", "script": "devanagari", "scriptName": "Devanagari" },
+    { "id": "tamil", "name": "Tamil", "nameAr": "التاميلية", "script": "tamil", "scriptName": "Tamil" },
+    { "id": "bengali", "name": "Bengali", "nameAr": "البنغالية", "script": "bengali", "scriptName": "Bengali" },
+    { "id": "urdu", "name": "Urdu", "nameAr": "الأردية", "script": "urdu", "scriptName": "Perso-Arabic" },
+    { "id": "telugu", "name": "Telugu", "nameAr": "التيلوغوية", "script": "telugu", "scriptName": "Telugu" },
+    { "id": "malayalam", "name": "Malayalam", "nameAr": "المالايالامية", "script": "malayalam", "scriptName": "Malayalam" },
+    { "id": "kannada", "name": "Kannada", "nameAr": "الكنادية", "script": "kannada", "scriptName": "Kannada" },
+    { "id": "gujarati", "name": "Gujarati", "nameAr": "الغوجاراتية", "script": "gujarati", "scriptName": "Gujarati" },
+    { "id": "punjabi", "name": "Punjabi", "nameAr": "البنجابية", "script": "gurmukhi", "scriptName": "Gurmukhi" },
+    { "id": "odia", "name": "Odia", "nameAr": "الأوديا", "script": "odia", "scriptName": "Odia" }
+  ],
+  "words": [
+    { "id": "hello", "english": "Hello", "arabic": "مرحبا",
+      "translations": { "hindi": "नमस्ते", "tamil": "வணக்கம்", "bengali": "নমস্কার", "urdu": "آداب", "telugu": "నమస్కారం", "malayalam": "നമസ്കാരം", "kannada": "ನಮಸ್ಕಾರ", "gujarati": "નમસ્તે", "punjabi": "ਸਤ ਸ੍ਰੀ ਅਕਾਲ", "odia": "ନମସ୍କାର" } },
+    { "id": "thanks", "english": "Thank you", "arabic": "شكرًا",
+      "translations": { "hindi": "धन्यवाद", "tamil": "நன்றி", "bengali": "ধন্যবাদ", "urdu": "شکریہ", "telugu": "ధన్యవాదాలు", "malayalam": "നന്ദി", "kannada": "ಧನ್ಯವಾದ", "gujarati": "આભાર", "punjabi": "ਧੰਨਵਾਦ", "odia": "ଧନ୍ୟବାଦ" } },
+    { "id": "india", "english": "India", "arabic": "الهند",
+      "translations": { "hindi": "भारत", "tamil": "இந்தியா", "bengali": "ভারত", "urdu": "بھارت", "telugu": "భారతదేశం", "malayalam": "ഭാരതം", "kannada": "ಭಾರತ", "gujarati": "ભારત", "punjabi": "ਭਾਰਤ", "odia": "ଭାରତ" } },
+    { "id": "water", "english": "Water", "arabic": "ماء",
+      "translations": { "hindi": "पानी", "tamil": "தண்ணீர்", "bengali": "জল", "urdu": "پانی", "telugu": "నీరు", "malayalam": "വെള്ളം", "kannada": "ನೀರು", "gujarati": "પાણી", "punjabi": "ਪਾਣੀ", "odia": "ପାଣି" } },
+    { "id": "friend", "english": "Friend", "arabic": "صديق",
+      "translations": { "hindi": "दोस्त", "tamil": "நண்பன்", "bengali": "বন্ধু", "urdu": "دوست", "telugu": "స్నేహితుడు", "malayalam": "സുഹൃത്ത്", "kannada": "ಸ್ನೇಹಿತ", "gujarati": "મિત્ર", "punjabi": "ਦੋਸਤ", "odia": "ବନ୍ଧୁ" } },
+    { "id": "mother", "english": "Mother", "arabic": "أم",
+      "translations": { "hindi": "माँ", "tamil": "அம்மா", "bengali": "মা", "urdu": "ماں", "telugu": "అమ్మ", "malayalam": "അമ്മ", "kannada": "ಅಮ್ಮ", "gujarati": "મા", "punjabi": "ਮਾਂ", "odia": "ମା" } },
+    { "id": "food", "english": "Food", "arabic": "طعام",
+      "translations": { "hindi": "खाना", "tamil": "உணவு", "bengali": "খাবার", "urdu": "کھانا", "telugu": "ఆహారం", "malayalam": "ഭക്ഷണം", "kannada": "ಊಟ", "gujarati": "ખાવાનું", "punjabi": "ਖਾਣਾ", "odia": "ଖାଦ୍ୟ" } },
+    { "id": "tea", "english": "Tea", "arabic": "شاي",
+      "translations": { "hindi": "चाय", "tamil": "தேநீர்", "bengali": "চা", "urdu": "چائے", "telugu": "టీ", "malayalam": "ചായ", "kannada": "ಚಹಾ", "gujarati": "ચા", "punjabi": "ਚਾਹ", "odia": "ଚା" } }
+  ]
+}

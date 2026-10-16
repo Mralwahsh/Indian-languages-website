@@ -1,0 +1,17 @@
+{
+  "_meta": { "note": "Hindi/Urdu words of Arabic origin. TODO: verify spellings with a native Hindi/Urdu speaker." },
+  "words": [
+    { "id": "kitab", "hindi": "किताब", "urdu": "کتاب", "arabic": "كتاب", "transliteration": "kitāb", "meaning": "book" },
+    { "id": "duniya", "hindi": "दुनिया", "urdu": "دنیا", "arabic": "دنيا", "transliteration": "duniyā", "meaning": "world" },
+    { "id": "waqt", "hindi": "वक़्त", "urdu": "وقت", "arabic": "وقت", "transliteration": "waqt", "meaning": "time" },
+    { "id": "insan", "hindi": "इंसान", "urdu": "انسان", "arabic": "إنسان", "transliteration": "insān", "meaning": "human" },
+    { "id": "qalam", "hindi": "क़लम", "urdu": "قلم", "arabic": "قلم", "transliteration": "qalam", "meaning": "pen" },
+    { "id": "khabar", "hindi": "ख़बर", "urdu": "خبر", "arabic": "خبر", "transliteration": "khabar", "meaning": "news" },
+    { "id": "shukriya", "hindi": "शुक्रिया", "urdu": "شکریہ", "arabic": "شكرًا", "transliteration": "shukriyā", "meaning": "thanks" },
+    { "id": "kursi", "hindi": "कुर्सी", "urdu": "کرسی", "arabic": "كرسي", "transliteration": "kursī", "meaning": "chair" },
+    { "id": "mausam", "hindi": "मौसम", "urdu": "موسم", "arabic": "موسم", "transliteration": "mausam", "meaning": "weather" },
+    { "id": "safar", "hindi": "सफ़र", "urdu": "سفر", "arabic": "سفر", "transliteration": "safar", "meaning": "journey" },
+    { "id": "jawab", "hindi": "जवाब", "urdu": "جواب", "arabic": "جواب", "transliteration": "javāb", "meaning": "answer" },
+    { "id": "akhbar", "hindi": "अख़बार", "urdu": "اخبار", "arabic": "أخبار", "transliteration": "akhbār", "meaning": "newspaper" }
+  ]
+}

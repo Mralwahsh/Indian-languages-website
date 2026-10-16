@@ -1,0 +1,80 @@
+@import "tailwindcss";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "./fonts.css";
+
+@theme {
+  /* Indian flag (tiranga) palette */
+  --color-cream: #fffdf8; /* the flag's white, slightly warm */
+  --color-paper: #ffffff;
+  --color-ink: #10123a;
+  --color-muted: #63657e;
+  --color-saffron: #ff9933; /* flag saffron */
+  --color-saffron-deep: #e2700a; /* saffron dark enough for text on white */
+  --color-saffron-soft: #ffead3;
+  --color-navy: #000080; /* Ashoka Chakra navy */
+  --color-navy-soft: #e3e3f6;
+  --color-green: #138808; /* flag green */
+  --color-green-soft: #dff2da;
+  --color-accent: #e5560c; /* deep saffron: Reset, wrong answers */
+  --color-accent-soft: #fde2d2;
+
+  /* Latin letters come from Bricolage, Arabic letters fall through to the Noto Arabic fonts */
+  --font-display: "Bricolage Grotesque Variable", "IS Kufi", system-ui, sans-serif;
+  --font-sans: "Bricolage Grotesque Variable", "IS ArabSans", system-ui, sans-serif;
+  --font-deva: "IS Deva", "Bricolage Grotesque Variable", sans-serif;
+  --font-urdu: "IS Urdu", serif;
+  --font-arab: "IS Arab", serif;
+  --font-taml: "IS Taml", sans-serif;
+  --font-beng: "IS Beng", sans-serif;
+  --font-telu: "IS Telu", sans-serif;
+  --font-knda: "IS Knda", sans-serif;
+  --font-mlym: "IS Mlym", sans-serif;
+  --font-gujr: "IS Gujr", sans-serif;
+  --font-guru: "IS Guru", sans-serif;
+  --font-orya: "IS Orya", sans-serif;
+  --font-mtei: "IS Mtei", sans-serif;
+  --font-tibt: "IS Tibt", serif;
+  --font-olck: "IS Olck", sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden; /* booth app: each page fits the screen */
+  user-select: none;
+}
+
+input {
+  user-select: text;
+}
+
+/* Nastaliq needs extra line height or its descenders get clipped */
+.font-urdu {
+  line-height: 2.1;
+}
+
+/* Subtle paper texture: two soft colour blooms */
+/* Tricolour wash: saffron glow on top, green glow at the bottom, white in between */
+.bg-exhibit {
+  background:
+    radial-gradient(1200px 380px at 50% -140px, rgba(255, 153, 51, 0.22), transparent 70%),
+    radial-gradient(1200px 380px at 50% calc(100% + 140px), rgba(19, 136, 8, 0.16), transparent 70%),
+    var(--color-cream);
+}
+
+/* Thin saffron | white | green band */
+.tricolor-band {
+  background: linear-gradient(90deg, #ff9933 0 33.33%, #ffffff 33.33% 66.66%, #138808 66.66% 100%);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
