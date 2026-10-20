@@ -38,6 +38,7 @@ A guide stands next to the laptop and walks each visitor through it in 1–2 min
 | ✍️ **Your Name** | Type a name in Arabic or English and see it in **Hindi, Urdu, Tamil, Bengali and Malayalam**. Tap a card to see how the name is built letter by letter, press **"Watch it being written"** to see each letter traced, and **"Take a photo!"** for a full-screen souvenir card. |
 | 🗺️ **Map** | India's 36 states and union territories coloured by language family, with neighbouring countries in gray. Hover a state for "Hello" in its language; click it to see **the visitor's own name in that state's script** (Telugu, Gujarati, Tibetan, Meitei Mayek…). |
 | 🎮 **Game** | "Guess the Script": 5 quick rounds; pick which of four words is written in, say, Tamil. Speed bonus and today's high score. |
+| 🥋 **India Fighters** | A side-view fighting game on the laptop, **controlled with the visitor's own phone** (no app: scan a QR code, the phone becomes a gamepad). Two original fighters, Veer and Tara, fight in a palace courtyard at sunset: best of 3, special moves, a beatable CPU opponent, and the phone vibrates when you get hit. |
 | 💤 **Attract mode** | After 30 s without input, a full-screen Indian-flag loop says "Hello" in many Indian scripts until someone touches the laptop. |
 
 ## 🚀 Quick start
@@ -48,10 +49,17 @@ You need [Node.js](https://nodejs.org/) 20.19 or newer (22 LTS recommended).
 git clone https://github.com/Mralwahsh/Indian-languages-website.git
 cd Indian-languages-website
 npm install        # once, while you have internet
-npm run booth      # builds the site and opens it in the browser
+npm start          # builds the site and serves it on http://localhost:3000
 ```
 
-For development with live reload, use `npm run dev` (http://localhost:5173).
+| Command | What it does |
+| --- | --- |
+| `npm start` | Build + start the booth server on port 3000 (site, game and phone controller). |
+| `npm run serve` | Start the server again without rebuilding. |
+| `npm run dev` | Development: Node server + Vite with live reload (http://localhost:5173), reachable from phones on the same network. |
+| `npm run sim` | Plays hundreds of fights with the real game engine to check the balance (no browser needed). |
+
+**Using phones as controllers? Read [BOOTH_SETUP.md](BOOTH_SETUP.md)**: Windows Mobile Hotspot, firewall, start-up and troubleshooting.
 
 After `npm install` everything runs **without internet**: fonts, map data and the HarfBuzz engine are all inside the project.
 
@@ -63,12 +71,14 @@ After `npm install` everything runs **without internet**: fonts, map data and th
 | **من جديد** button or **Esc** | New visitor: clears the name and everything else, back to Home. In fullscreen, a short Esc press resets; *holding* Esc exits fullscreen (Chrome / Edge). |
 | No input for 30 s | Attract mode starts. Any input closes it. If it keeps running for 90 more seconds, the previous visitor's name is wiped. |
 | Game keys **1 – 4**, **Enter** | Answer / start: handy for the guide. |
+| Fight page: **A D W S + J K L I**, **P**, **M** | Play P1 on the keyboard, show ping, sound on/off. |
 
 Timings are in [`src/config/booth.js`](src/config/booth.js).
 
 **Before the event**
 
-- [ ] Run `npm run booth` once with **Wi-Fi turned off** and click through every page
+- [ ] Run `npm start` once with **Wi-Fi turned off** and click through every page
+- [ ] Follow [BOOTH_SETUP.md](BOOTH_SETUP.md) and play one fight with a real phone
 - [ ] Use Chrome or Edge, browser zoom 100 %, fullscreen on
 - [ ] Turn off sleep / screensaver and keep the charger connected
 
@@ -76,7 +86,9 @@ Timings are in [`src/config/booth.js`](src/config/booth.js).
 
 | | |
 | --- | --- |
-| Framework | React 19 + Vite, React Router (hash routing, works from any folder) |
+| Framework | React 19 + Vite, React Router |
+| Server | Node.js + Express + Socket.IO (local network only, no database) |
+| Game | Phaser 3, with a separate pure-JS fight engine |
 | Styling | Tailwind CSS 4, Framer Motion animations, right-to-left Arabic layout |
 | Map | d3-geo + topojson-client |
 | Scripts | [`@indic-transliteration/sanscript`](https://github.com/indic-transliteration/sanscript.js) for transliteration, [HarfBuzz](https://github.com/harfbuzz/harfbuzzjs) (WebAssembly) for real glyph shapes |
@@ -104,6 +116,20 @@ flowchart LR
 - Devanagari is the hub: every other Indic script is generated from it, with script-specific fixes (Tamil ன/ஃப, Gurmukhi ੱ, Malayalam chillu letters, Meitei final letters, Bengali য়).
 - A simple Hindi "schwa deletion" rule turns अहमद into the pronunciation *ah-mad*.
 
+### Phones as game controllers
+
+```mermaid
+flowchart LR
+    P[📱 Phone<br/>/controller] -- "press / release<br/>(Socket.IO)" --> S[Node server<br/>room: P1, P2]
+    S -- input --> L[💻 Laptop /fight<br/>Phaser game]
+    L -- hit --> S -- vibrate --> P
+```
+
+- The server only **relays button presses and releases** and keeps track of who is Player 1 / Player 2. Each slot is a phone or the CPU. Phase 1 = one phone vs the CPU. Switching `P2_MODE` in [`shared/protocol.js`](shared/protocol.js) to `'human'` lets a second phone take P2.
+- The game reads every player through the same **InputSource** interface (phone, keyboard or CPU), so it never knows where input comes from.
+- The fight logic (`src/game/engine/`) is plain JavaScript with no Phaser, running at a fixed 60 steps per second. That's why `npm run sim` can test it in Node.
+- A phone that drops (screen lock, Wi-Fi hiccup) pauses the match and gets **its own slot back** when it reconnects.
+
 ### Real letter shapes
 
 Indian scripts join and reorder letters (ि is written *before* the consonant it follows; ब + ् + र becomes ब्र). Instead of faking this, the site runs **HarfBuzz**, the same text-shaping engine browsers use, on the bundled Noto fonts and draws every glyph as an SVG path. That's what makes two features possible:
@@ -114,16 +140,23 @@ Indian scripts join and reorder letters (ि is written *before* the consonant i
 ## 📁 Project structure
 
 ```
+server/          Express + Socket.IO booth server (room with P1/P2 slots, LAN-IP detection)
+shared/          protocol.js: socket event names, shared by server and browser
 public/
   data/          india_states.topojson (state borders), neighbors.topojson (gray countries)
   fonts/         Noto .ttf files, used by CSS and by HarfBuzz
 src/
-  pages/         HomePage, MapPage, NamePage, GamePage
-  components/    TopBar, AttractMode, GlyphText, LetterBreakdown, NameCardModal, StatePanel, Chakra…
+  pages/         HomePage, MapPage, NamePage, GamePage, FightPage (laptop), ControllerPage (phone)
+  components/    TopBar, AttractMode, GlyphText, LetterBreakdown, StatePanel, fight/ (lobby, stage, QR)…
+  game/
+    characters/  one config file per fighter (colours, sprite paths, move stats) + README
+    engine/      Fighter + Match: pure fight simulation
+    input/       InputSource: Keyboard, Network (phone), CPU
+    phaser/      FightScene, stage, fighter views, HUD
   services/      dataService (all data access) · transliteration · glyphService (HarfBuzz) · scriptInfo
   data/          languages, states, names, arabicWords, gameRounds (.json)
-  config/        scripts (fonts per script), booth (timings), nameScripts
-  context/       VisitorContext: the visitor's name, shared by all pages
+  config/        booth.json (hotspot Wi-Fi name/password), booth.js (timings), scripts, nameScripts
+scripts/         simulate-fights.mjs (npm run sim)
 ```
 
 ## ✏️ Editing the content
@@ -137,8 +170,13 @@ All texts shown to visitors are plain JSON in [`src/data/`](src/data). No code c
 | Names and their spellings (add a `"malayalam"` field to override the generated one) | [`names.json`](src/data/names.json) |
 | Hindi ⇄ Arabic word cards | [`arabicWords.json`](src/data/arabicWords.json) |
 | Game words | [`gameRounds.json`](src/data/gameRounds.json) |
+| Hotspot Wi-Fi name / password (Wi-Fi QR code) | [`src/config/booth.json`](src/config/booth.json) |
+| Fighters, moves, damage, real sprite art | [`src/game/characters/`](src/game/characters) ([guide](src/game/characters/README.md)) |
+| CPU difficulty, round length | [`src/game/config.js`](src/game/config.js) |
 
 ## 🧭 Roadmap
+
+- **India Fighters, Phase 2**: two phones fight each other (the server already has P1/P2 slots).
 
 The code is ready for a backend (**Node.js + Supabase + OpenRouter**):
 

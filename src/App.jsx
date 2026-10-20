@@ -1,5 +1,5 @@
-import { useCallback, useEffect } from 'react'
-import { HashRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import { Suspense, lazy, useCallback, useEffect } from 'react'
+import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { VisitorProvider, useVisitor } from './context/VisitorContext.jsx'
 import { useIdle } from './hooks/useIdle.js'
@@ -12,15 +12,22 @@ import MapPage from './pages/MapPage.jsx'
 import NamePage from './pages/NamePage.jsx'
 import GamePage from './pages/GamePage.jsx'
 
+// The fighting game (Phaser) and the phone controller are loaded only when visited.
+const FightPage = lazy(() => import('./pages/FightPage.jsx'))
+const ControllerPage = lazy(() => import('./pages/ControllerPage.jsx'))
+
 function Shell() {
   const location = useLocation()
   const navigate = useNavigate()
   const { reset, resetKey } = useVisitor()
-  const idle = useIdle(BOOTH.idleSeconds)
+  // During the fight the laptop gets no mouse/keyboard input (players use phones): no attract mode there.
+  const onFight = location.pathname === '/fight'
+  const idle = useIdle(BOOTH.idleSeconds, !onFight)
 
+  // Reset = new visitor. On the fight page it ends the match and goes back to the fight lobby.
   const resetAll = useCallback(() => {
     reset()
-    navigate('/')
+    if (window.location.pathname !== '/fight') navigate('/')
   }, [reset, navigate])
 
   // Esc = new visitor (works everywhere, including inside inputs)
@@ -58,6 +65,14 @@ function Shell() {
                 <Route path="/map" element={<MapPage />} />
                 <Route path="/name" element={<NamePage />} />
                 <Route path="/game" element={<GamePage />} />
+                <Route
+                  path="/fight"
+                  element={
+                    <Suspense fallback={null}>
+                      <FightPage />
+                    </Suspense>
+                  }
+                />
                 <Route path="*" element={<HomePage />} />
               </Routes>
             </ErrorBoundary>
@@ -71,10 +86,26 @@ function Shell() {
 
 export default function App() {
   return (
-    <HashRouter>
-      <VisitorProvider>
-        <Shell />
-      </VisitorProvider>
-    </HashRouter>
+    <BrowserRouter>
+      <Routes>
+        {/* phone controller: standalone page, none of the booth chrome */}
+        <Route
+          path="/controller"
+          element={
+            <Suspense fallback={null}>
+              <ControllerPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <VisitorProvider>
+              <Shell />
+            </VisitorProvider>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   )
 }

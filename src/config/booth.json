@@ -1,0 +1,8 @@
+{
+  "_note": "Edit these to match the Windows Mobile Hotspot settings (Settings → Network → Mobile hotspot). Used for the Wi-Fi QR code on the fight lobby.",
+  "wifi": {
+    "ssid": "India-Booth",
+    "password": "namaste2026",
+    "security": "WPA"
+  }
+}

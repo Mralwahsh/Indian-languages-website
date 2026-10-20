@@ -4,22 +4,31 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently -k -n server,web -c green,cyan \"node --watch server/index.js\" \"vite --host\"",
+    "dev:web": "vite --host",
     "build": "vite build",
+    "start": "vite build && node server/index.js --prod",
+    "serve": "node server/index.js --prod",
+    "booth": "npm start",
     "preview": "vite preview",
-    "booth": "vite build && vite preview --open",
-    "lint": "oxlint src"
+    "lint": "oxlint src server shared scripts",
+    "sim": "node scripts/simulate-fights.mjs"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",
     "@indic-transliteration/sanscript": "^1.3.3",
     "d3-geo": "^3.1.1",
+    "express": "^5.3.0",
     "framer-motion": "^14.3.0",
     "harfbuzzjs": "^1.6.3",
     "lucide-react": "^1.58.0",
+    "phaser": "^3.90.0",
+    "qrcode": "^1.5.4",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.4",
+    "socket.io": "^4.8.4",
+    "socket.io-client": "^4.8.4",
     "topojson-client": "^3.1.0"
   },
   "devDependencies": {
@@ -27,6 +36,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
+    "concurrently": "^10.0.6",
     "oxlint": "^1.81.0",
     "tailwindcss": "^4.3.3",
     "vite": "^8.3.0"

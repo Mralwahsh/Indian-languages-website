@@ -87,7 +87,7 @@ export default function MapPage() {
     if (r) setMouse({ x: e.clientX - r.left, y: e.clientY - r.top, w: r.width })
   }
 
-  const shapes = map?.shapes ?? []
+  const shapes = useMemo(() => map?.shapes ?? [], [map])
   const sorted = useMemo(
     // draw hovered/selected last so their outline sits on top
     () => [...shapes].sort((a, b) => (a.id === hovered || a.id === selected) - (b.id === hovered || b.id === selected)),

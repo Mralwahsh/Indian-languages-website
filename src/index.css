@@ -78,3 +78,32 @@ input {
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* ---- phone controller (/controller) ---- */
+body.controller-mode {
+  position: fixed;
+  inset: 0;
+  overscroll-behavior: none;
+  touch-action: none;
+  -webkit-text-size-adjust: 100%;
+}
+body.controller-mode * {
+  -webkit-tap-highlight-color: transparent;
+}
+.rotate-hint {
+  display: none;
+  place-items: center;
+}
+@media (orientation: portrait) {
+  .rotate-hint {
+    display: grid;
+  }
+}
+@keyframes hitflash {
+  from {
+    opacity: 0.45;
+  }
+  to {
+    opacity: 0;
+  }
+}
