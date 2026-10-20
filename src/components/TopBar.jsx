@@ -10,7 +10,7 @@ const NAV = [
   { to: '/map', label: 'الخريطة' },
   { to: '/name', label: 'اسمك' },
   { to: '/game', label: 'اللعبة' },
-  { to: '/fight', label: 'القتال' },
+  { to: '/football', label: 'كرة القدم' },
 ]
 
 export default function TopBar({ onReset }) {

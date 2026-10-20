@@ -2,17 +2,8 @@ import { InputSource } from './InputSource.js'
 
 /** Laptop keyboard (for testing without a phone). Uses KeyboardEvent.code, so it works with any layout (incl. Arabic). */
 export const KEYMAPS = {
-  p1: { KeyA: 'left', KeyD: 'right', KeyW: 'up', KeyS: 'down', KeyJ: 'punch', KeyK: 'kick', KeyL: 'block', KeyI: 'special' },
-  p2: {
-    ArrowLeft: 'left',
-    ArrowRight: 'right',
-    ArrowUp: 'up',
-    ArrowDown: 'down',
-    Numpad1: 'punch',
-    Numpad2: 'kick',
-    Numpad3: 'block',
-    Numpad5: 'special',
-  },
+  p1: { KeyA: 'left', KeyD: 'right', KeyW: 'jump', KeyS: 'kick' },
+  p2: { ArrowLeft: 'left', ArrowRight: 'right', ArrowUp: 'jump', ArrowDown: 'kick' },
 }
 
 export class KeyboardInputSource extends InputSource {

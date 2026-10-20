@@ -11,8 +11,7 @@
     "serve": "node server/index.js --prod",
     "booth": "npm start",
     "preview": "vite preview",
-    "lint": "oxlint src server shared scripts",
-    "sim": "node scripts/simulate-fights.mjs"
+    "lint": "oxlint src server shared"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",

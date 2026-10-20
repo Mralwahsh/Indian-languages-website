@@ -1,7 +1,7 @@
 // Tiny synthesised sound effects (Web Audio API): no audio files, works offline.
 // Browsers only allow sound after a click/key press on the laptop page, so the booth
 // operator should click once (e.g. the fullscreen button) before the first match.
-const KEY = 'india-fighters:muted'
+const KEY = 'india-football:muted'
 let ctx = null
 let muted = (() => {
   try {
@@ -62,29 +62,26 @@ function noise({ duration = 0.1, gain = 0.3, freq = 800, q = 0.8, sweepTo, delay
 }
 
 const SOUNDS = {
-  whoosh: () => noise({ duration: 0.12, gain: 0.12, freq: 600, sweepTo: 2400, q: 1.2 }),
-  punch: () => {
-    tone({ type: 'sine', from: 160, to: 60, duration: 0.12, gain: 0.5 })
-    noise({ duration: 0.07, gain: 0.35, freq: 900 })
-  },
+  whoosh: () => noise({ duration: 0.1, gain: 0.08, freq: 700, sweepTo: 2200, q: 1.2 }),
   kick: () => {
-    tone({ type: 'sine', from: 120, to: 40, duration: 0.18, gain: 0.6 })
-    noise({ duration: 0.1, gain: 0.35, freq: 600 })
+    tone({ type: 'sine', from: 150, to: 50, duration: 0.14, gain: 0.55 })
+    noise({ duration: 0.06, gain: 0.3, freq: 1200 })
   },
-  block: () => {
-    tone({ type: 'square', from: 900, to: 700, duration: 0.07, gain: 0.08 })
-    tone({ type: 'triangle', from: 1400, to: 1200, duration: 0.1, gain: 0.08 })
+  header: () => tone({ type: 'sine', from: 220, to: 120, duration: 0.1, gain: 0.35 }),
+  bounce: () => tone({ type: 'sine', from: 180, to: 90, duration: 0.08, gain: 0.2 }),
+  post: () => {
+    tone({ type: 'triangle', from: 980, to: 900, duration: 0.35, gain: 0.12 })
+    tone({ type: 'triangle', from: 1480, to: 1400, duration: 0.25, gain: 0.06 })
   },
-  special: () => tone({ type: 'sawtooth', from: 220, to: 880, duration: 0.3, gain: 0.08 }),
-  ko: () => {
-    tone({ type: 'sine', from: 90, to: 30, duration: 0.7, gain: 0.7 })
-    noise({ duration: 0.5, gain: 0.3, freq: 300, sweepTo: 80 })
+  goal: () => {
+    noise({ duration: 1.6, gain: 0.18, freq: 900, sweepTo: 1600, q: 0.5 }) // crowd roar
+    ;[523, 659, 784, 1046].forEach((f, i) => tone({ type: 'triangle', from: f, duration: 0.3, gain: 0.12, delay: i * 0.1 }))
+  },
+  whistle: () => {
+    tone({ type: 'square', from: 2600, to: 2500, duration: 0.18, gain: 0.05 })
+    tone({ type: 'square', from: 2600, to: 2450, duration: 0.45, gain: 0.05, delay: 0.22 })
   },
   beep: () => tone({ type: 'square', from: 660, duration: 0.12, gain: 0.08 }),
-  go: () => {
-    tone({ type: 'square', from: 523, duration: 0.12, gain: 0.08 })
-    tone({ type: 'square', from: 784, duration: 0.3, gain: 0.09, delay: 0.12 })
-  },
   win: () => [523, 659, 784, 1046].forEach((f, i) => tone({ type: 'triangle', from: f, duration: 0.25, gain: 0.12, delay: i * 0.12 })),
 }
 

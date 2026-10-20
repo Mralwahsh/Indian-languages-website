@@ -1,7 +1,7 @@
 import { InputSource } from './InputSource.js'
 
 /**
- * Tiny pub/sub that the fight page feeds with Socket.IO `input` events ({ slot, button, pressed }).
+ * Tiny pub/sub that the football page feeds with Socket.IO `input` events ({ slot, button, pressed }).
  * Keeping the socket out of the game means the game never knows about networking.
  */
 export function createInputBus() {

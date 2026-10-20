@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { EV } from '../../shared/protocol.js'
+import { AnimatePresence, motion } from 'framer-motion'
+import { CHARACTER_IDS, DEFAULT_PICKS, EV } from '../../shared/protocol.js'
 import { connectSocket, measurePing } from '../game/net/socket.js'
-import { SLOT_CHARACTER, SLOT_COLOR, SLOT_LABEL_AR } from '../game/characters/index.js'
+import { CHARACTERS, SLOT_COLOR, SLOT_LABEL_AR } from '../game/football/characters/index.js'
+import { headDataUrl } from '../game/football/characters/art.js'
 
 // A short-lived id so a phone that drops (screen lock, Wi-Fi hiccup, reload) gets its slot back.
 // Not crypto.randomUUID(): that only exists on HTTPS pages, and the booth runs on plain HTTP.
 function clientId() {
-  const KEY = 'india-fighters:client-id'
+  const KEY = 'india-football:client-id'
   try {
     let id = localStorage.getItem(KEY)
     if (!id) {
@@ -20,18 +22,11 @@ function clientId() {
 }
 
 const PHASE_TEXT = {
-  lobby: 'اضغط أي زر للبدء',
-  fighting: 'قاتل!',
+  lobby: 'اختر لاعبك ثم اضغط «ركل»',
+  playing: 'العب!',
   paused: 'المباراة متوقفة',
-  result: 'اضغط أي زر للعب مجددًا',
+  result: 'اضغط «ركل» للعب مجددًا',
 }
-
-const ACTIONS = [
-  { button: 'punch', label: 'لكمة', icon: '👊', color: '#ff9933', area: 'punch' },
-  { button: 'kick', label: 'ركلة', icon: '🦶', color: '#138808', area: 'kick' },
-  { button: 'block', label: 'صدّ', icon: '🛡️', color: '#3b4bc4', area: 'block' },
-  { button: 'special', label: 'خاصة', icon: '✨', color: '#c2185b', area: 'special' },
-]
 
 /** Phone controller: /controller. Landscape, multitouch, no zoom/scroll/selection. */
 export default function ControllerPage() {
@@ -39,10 +34,16 @@ export default function ControllerPage() {
   const [status, setStatus] = useState('connecting') // connecting | connected | reconnecting | full | error
   const [slot, setSlot] = useState(null)
   const [phase, setPhase] = useState('lobby')
+  const [room, setRoom] = useState(null)
+  const [score, setScore] = useState({ p1: 0, p2: 0 })
   const [ping, setPing] = useState(null)
-  const [hitFlash, setHitFlash] = useState(0)
+  const [flash, setFlash] = useState(0)
   const [held, setHeld] = useState({})
   const heldRef = useRef({})
+  const phaseRef = useRef(phase)
+  useEffect(() => {
+    phaseRef.current = phase
+  }, [phase])
 
   // ---------------------------------------------------------- button state → server
   const setButton = useCallback((button, pressed) => {
@@ -66,17 +67,28 @@ export default function ControllerPage() {
         if (res?.ok) {
           setSlot(res.slot)
           setPhase(res.phase)
+          if (res.room) {
+            setRoom(res.room)
+            setScore(res.room.score)
+          }
           setStatus('connected')
         } else setStatus(res?.reason === 'full' ? 'full' : 'error')
       })
     socket.on('connect', join)
     socket.on('disconnect', () => setStatus((s) => (s === 'full' ? s : 'reconnecting')))
     socket.io.on('reconnect_attempt', () => setStatus((s) => (s === 'full' ? s : 'reconnecting')))
-    socket.on(EV.GAME_STATE, ({ phase: p }) => setPhase(p))
-    socket.on(EV.HIT, () => {
-      setHitFlash((n) => n + 1)
+    socket.on(EV.ROOM_UPDATE, (r) => {
+      setRoom(r)
+      setScore(r.score)
+    })
+    socket.on(EV.GAME_STATE, ({ phase: p, score: sc }) => {
+      setPhase(p)
+      if (sc) setScore(sc)
+    })
+    socket.on(EV.BUZZ, ({ pattern }) => {
+      setFlash((n) => n + 1)
       try {
-        navigator.vibrate?.(70)
+        navigator.vibrate?.(pattern)
       } catch {
         /* not supported (iPhone) */
       }
@@ -123,8 +135,35 @@ export default function ControllerPage() {
     }
   }, [])
 
+  // ---------------------------------------------------------- character select (lobby / result)
+  const myPick = room?.slots?.[slot]?.character ?? DEFAULT_PICKS[slot ?? 'p1']
+  const otherSlot = slot === 'p2' ? 'p1' : 'p2'
+  const otherPick = room?.slots?.[otherSlot]?.type === 'human' ? room.slots[otherSlot].character : null
+  const canPick = phase === 'lobby' || phase === 'result'
+  const cyclePick = useCallback(
+    (dir) => {
+      if (!canPick) return
+      let i = CHARACTER_IDS.indexOf(myPick)
+      do i = (i + dir + CHARACTER_IDS.length) % CHARACTER_IDS.length
+      while (CHARACTER_IDS[i] === otherPick)
+      socketRef.current?.emit(EV.CONTROLLER_PICK, { characterId: CHARACTER_IDS[i] })
+      // show it immediately; the server's room:update confirms (or snaps back)
+      setRoom((r) => (r && slot ? { ...r, slots: { ...r.slots, [slot]: { ...r.slots[slot], character: CHARACTER_IDS[i] } } } : r))
+    },
+    [canPick, myPick, otherPick, slot],
+  )
+
+  // ◀ ▶ also change the character while in the lobby
+  const onButton = useCallback(
+    (button, pressed) => {
+      setButton(button, pressed)
+      if (pressed && (button === 'left' || button === 'right') && canPick) cyclePick(button === 'right' ? 1 : -1)
+    },
+    [setButton, canPick, cyclePick],
+  )
+
   const color = SLOT_COLOR[slot] ?? '#ff9933'
-  const character = SLOT_CHARACTER[slot]
+  const character = CHARACTERS[myPick]
 
   return (
     <div
@@ -136,17 +175,20 @@ export default function ControllerPage() {
 
       {/* top bar */}
       <header
-        className="flex shrink-0 items-center justify-between gap-3 py-2"
+        className="flex shrink-0 items-center justify-between gap-3 py-1.5"
         dir="rtl"
         style={{ paddingLeft: 'max(1rem, env(safe-area-inset-left))', paddingRight: 'max(1rem, env(safe-area-inset-right))' }}
       >
         <div className="flex items-center gap-2">
-          <span className="rounded-full px-3 py-1 text-base font-extrabold text-[#0b0f3a]" style={{ backgroundColor: color }}>
+          <span className="rounded-full px-3 py-0.5 text-base font-extrabold text-[#0b0f3a]" style={{ backgroundColor: color }}>
             {slot ? SLOT_LABEL_AR[slot] : '…'}
           </span>
+          {character && <img src={headDataUrl(character)} alt="" className={`h-9 w-9 ${slot === 'p2' ? '-scale-x-100' : ''}`} />}
           {character && <span className="text-lg font-bold">{character.nameAr}</span>}
         </div>
-        <span className="text-base font-bold text-white/80">{status === 'connected' ? PHASE_TEXT[phase] : ''}</span>
+        <span className="font-display text-2xl font-extrabold" dir="ltr">
+          {score.p1} - {score.p2}
+        </span>
         <div className="flex items-center gap-2 text-sm">
           <span className={`h-3 w-3 rounded-full ${status === 'connected' ? 'bg-[#2ecc40]' : 'animate-pulse bg-[#ffb000]'}`} />
           <span className="text-white/70">{status === 'connected' ? `${ping ?? '–'} ms` : 'إعادة الاتصال…'}</span>
@@ -156,20 +198,32 @@ export default function ControllerPage() {
 
       {/* pad */}
       <main
-        className="relative grid min-h-0 flex-1 grid-cols-2 items-center gap-4 pb-[3vh]"
-        // keep the pad clear of the notch / rounded corners in landscape
-        style={{ paddingLeft: 'max(4vw, env(safe-area-inset-left))', paddingRight: 'max(4vw, env(safe-area-inset-right))' }}
+        className="relative grid min-h-0 flex-1 grid-cols-[1fr_auto_1fr] items-center gap-3 pb-[3vh]"
+        style={{ paddingLeft: 'max(3vw, env(safe-area-inset-left))', paddingRight: 'max(3vw, env(safe-area-inset-right))' }}
       >
-        <DPad onChange={setButton} held={held} />
-        <div className="grid justify-self-end" style={{ gridTemplateAreas: '". special ." "block . kick" ". punch ."', gap: '1.2vh' }}>
-          {ACTIONS.map((a) => (
-            <ActionButton key={a.button} {...a} pressed={!!held[a.button]} onChange={setButton} />
-          ))}
+        <div className="flex gap-[2.5vw]">
+          <PadButton button="left" label="◀" color="#3b4bc4" pressed={!!held.left} onChange={onButton} />
+          <PadButton button="right" label="▶" color="#3b4bc4" pressed={!!held.right} onChange={onButton} />
+        </div>
+
+        {/* centre: character select in the lobby, otherwise the phase text */}
+        <div className="flex w-[30vw] flex-col items-center justify-center text-center" dir="rtl">
+          {canPick && slot ? (
+            <CharacterPicker character={character} onCycle={cyclePick} />
+          ) : (
+            <p className="text-[4vh] font-bold text-white/80">{PHASE_TEXT[phase]}</p>
+          )}
+          {canPick && <p className="mt-1 text-[3vh] font-bold text-white/70">{PHASE_TEXT[phase]}</p>}
+        </div>
+
+        <div className="flex items-end justify-end gap-[2.5vw]">
+          <PadButton button="jump" label="قفز" icon="⤒" color="#138808" pressed={!!held.jump} onChange={onButton} />
+          <PadButton button="kick" label="ركل" icon="⚽" color="#ff9933" big pressed={!!held.kick} onChange={onButton} />
         </div>
       </main>
 
-      {/* hit flash */}
-      {hitFlash > 0 && <div key={hitFlash} className="pointer-events-none absolute inset-0 animate-[hitflash_250ms_ease-out_forwards] bg-[#ff3b30]" />}
+      {/* goal flash */}
+      {flash > 0 && <div key={flash} className="pointer-events-none absolute inset-0 animate-[hitflash_400ms_ease-out_forwards] bg-[#ffd23f]" />}
 
       {/* status screens */}
       {status !== 'connected' && status !== 'reconnecting' && (
@@ -197,7 +251,45 @@ export default function ControllerPage() {
   )
 }
 
-// Keep receiving a finger's events even if it slides off the element (ignore if the browser refuses)
+/** Character carousel: tap the arrows or swipe. */
+function CharacterPicker({ character, onCycle }) {
+  const start = useRef(null)
+  return (
+    <div
+      className="flex touch-none items-center gap-2"
+      onPointerDown={(e) => (start.current = e.clientX)}
+      onPointerUp={(e) => {
+        if (start.current == null) return
+        const dx = e.clientX - start.current
+        start.current = null
+        if (Math.abs(dx) > 30) onCycle(dx < 0 ? 1 : -1)
+      }}
+    >
+      <button type="button" onClick={() => onCycle(-1)} className="grid h-[9vh] w-[9vh] place-items-center rounded-full bg-white/10 text-[4vh]">
+        ‹
+      </button>
+      <AnimatePresence mode="popLayout">
+        <motion.div
+          key={character.id}
+          className="flex flex-col items-center"
+          initial={{ opacity: 0, scale: 0.6, rotate: -15 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          exit={{ opacity: 0, scale: 0.6 }}
+          transition={{ type: 'spring', stiffness: 320, damping: 18 }}
+        >
+          <img src={headDataUrl(character)} alt="" className="h-[30vh] w-[30vh]" draggable={false} />
+          <span className="text-[4.2vh] leading-tight font-extrabold">{character.nameAr}</span>
+          <span className="text-[2.8vh] text-white/70">{character.regionAr}</span>
+        </motion.div>
+      </AnimatePresence>
+      <button type="button" onClick={() => onCycle(1)} className="grid h-[9vh] w-[9vh] place-items-center rounded-full bg-white/10 text-[4vh]">
+        ›
+      </button>
+    </div>
+  )
+}
+
+// Keep receiving a finger's events even if it slides off the button (ignore if the browser refuses)
 function capture(e) {
   try {
     e.currentTarget.setPointerCapture(e.pointerId)
@@ -206,66 +298,8 @@ function capture(e) {
   }
 }
 
-/** Left side: one touch zone; the thumb's position decides left/right/up/down (slide between them freely). */
-function DPad({ onChange, held }) {
-  const ref = useRef(null)
-  const pointers = useRef(new Map()) // pointerId → {x, y}
-
-  const recompute = useCallback(() => {
-    const el = ref.current
-    if (!el) return
-    const r = el.getBoundingClientRect()
-    const cx = r.left + r.width / 2
-    const cy = r.top + r.height / 2
-    const dead = r.width * 0.14
-    const dirs = { left: false, right: false, up: false, down: false }
-    for (const { x, y } of pointers.current.values()) {
-      const dx = x - cx
-      const dy = y - cy
-      if (Math.abs(dx) > dead && Math.abs(dx) > Math.abs(dy) * 0.45) dirs[dx < 0 ? 'left' : 'right'] = true
-      if (Math.abs(dy) > dead && Math.abs(dy) > Math.abs(dx) * 0.45) dirs[dy < 0 ? 'up' : 'down'] = true
-    }
-    Object.entries(dirs).forEach(([b, v]) => onChange(b, v))
-  }, [onChange])
-
-  const handlers = {
-    onPointerDown: (e) => {
-      capture(e)
-      pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY })
-      recompute()
-    },
-    onPointerMove: (e) => {
-      if (!pointers.current.has(e.pointerId)) return
-      pointers.current.set(e.pointerId, { x: e.clientX, y: e.clientY })
-      recompute()
-    },
-    onPointerUp: (e) => {
-      pointers.current.delete(e.pointerId)
-      recompute()
-    },
-  }
-  handlers.onPointerCancel = handlers.onPointerUp
-  handlers.onLostPointerCapture = handlers.onPointerUp
-
-  const arrow = (b, cls, label) => (
-    <span className={`absolute grid place-items-center rounded-2xl text-[7vh] font-black transition-colors duration-75 ${cls} ${held[b] ? 'bg-white text-[#0b0f3a]' : 'bg-white/10 text-white/80'}`}>
-      {label}
-    </span>
-  )
-
-  return (
-    <div ref={ref} className="relative aspect-square h-[min(62vh,44vw)] touch-none rounded-full bg-white/5 ring-2 ring-white/10" {...handlers}>
-      {arrow('up', 'left-1/3 top-0 h-1/3 w-1/3', '▲')}
-      {arrow('down', 'bottom-0 left-1/3 h-1/3 w-1/3', '▼')}
-      {arrow('left', 'top-1/3 left-0 h-1/3 w-1/3', '◀')}
-      {arrow('right', 'top-1/3 right-0 h-1/3 w-1/3', '▶')}
-      <span className="pointer-events-none absolute inset-[38%] rounded-full bg-white/10" />
-    </div>
-  )
-}
-
-/** Right side: big action buttons; each finger is tracked separately (multitouch). */
-function ActionButton({ button, label, icon, color, area, pressed, onChange }) {
+/** One big button; each finger is tracked separately (multitouch: hold ▶ + JUMP + KICK). */
+function PadButton({ button, label, icon, color, big, pressed, onChange }) {
   const ids = useRef(new Set())
   const down = (e) => {
     capture(e)
@@ -276,15 +310,15 @@ function ActionButton({ button, label, icon, color, area, pressed, onChange }) {
     ids.current.delete(e.pointerId)
     if (ids.current.size === 0) onChange(button, false)
   }
+  const size = big ? 'h-[min(40vh,22vw)] w-[min(40vh,22vw)]' : 'h-[min(32vh,17vw)] w-[min(32vh,17vw)]'
   return (
     <button
       type="button"
-      className="grid h-[min(19vh,15vw)] w-[min(19vh,15vw)] touch-none place-items-center rounded-full font-extrabold shadow-lg transition-transform duration-75 select-none"
+      className={`${size} grid touch-none place-items-center rounded-full font-extrabold shadow-lg transition-transform duration-75 select-none`}
       style={{
-        gridArea: area,
         backgroundColor: color,
         transform: pressed ? 'scale(0.9)' : 'scale(1)',
-        boxShadow: pressed ? `0 0 0 6px #ffffff` : `0 6px 0 rgba(0,0,0,0.35)`,
+        boxShadow: pressed ? `0 0 0 6px #ffffff` : `0 7px 0 rgba(0,0,0,0.35)`,
       }}
       onPointerDown={down}
       onPointerUp={up}
@@ -292,8 +326,8 @@ function ActionButton({ button, label, icon, color, area, pressed, onChange }) {
       onLostPointerCapture={up}
     >
       <span className="flex flex-col items-center leading-none">
-        <span className="text-[5vh]">{icon}</span>
-        <span className="mt-1 text-[3.2vh]">{label}</span>
+        {icon && <span className="text-[6vh]">{icon}</span>}
+        <span className={icon ? 'mt-1 text-[4.5vh]' : 'text-[9vh]'}>{label}</span>
       </span>
     </button>
   )

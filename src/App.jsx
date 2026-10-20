@@ -12,22 +12,22 @@ import MapPage from './pages/MapPage.jsx'
 import NamePage from './pages/NamePage.jsx'
 import GamePage from './pages/GamePage.jsx'
 
-// The fighting game (Phaser) and the phone controller are loaded only when visited.
-const FightPage = lazy(() => import('./pages/FightPage.jsx'))
+// The football game (Phaser) and the phone controller are loaded only when visited.
+const FootballPage = lazy(() => import('./pages/FootballPage.jsx'))
 const ControllerPage = lazy(() => import('./pages/ControllerPage.jsx'))
 
 function Shell() {
   const location = useLocation()
   const navigate = useNavigate()
   const { reset, resetKey } = useVisitor()
-  // During the fight the laptop gets no mouse/keyboard input (players use phones): no attract mode there.
-  const onFight = location.pathname === '/fight'
-  const idle = useIdle(BOOTH.idleSeconds, !onFight)
+  // During a match the laptop gets no mouse/keyboard input (players use phones): no attract mode there.
+  const onGame = location.pathname === '/football'
+  const idle = useIdle(BOOTH.idleSeconds, !onGame)
 
-  // Reset = new visitor. On the fight page it ends the match and goes back to the fight lobby.
+  // Reset = new visitor. On the football page it ends the match and goes back to its lobby.
   const resetAll = useCallback(() => {
     reset()
-    if (window.location.pathname !== '/fight') navigate('/')
+    if (window.location.pathname !== '/football') navigate('/')
   }, [reset, navigate])
 
   // Esc = new visitor (works everywhere, including inside inputs)
@@ -66,10 +66,10 @@ function Shell() {
                 <Route path="/name" element={<NamePage />} />
                 <Route path="/game" element={<GamePage />} />
                 <Route
-                  path="/fight"
+                  path="/football"
                   element={
                     <Suspense fallback={null}>
-                      <FightPage />
+                      <FootballPage />
                     </Suspense>
                   }
                 />

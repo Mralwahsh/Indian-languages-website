@@ -9,7 +9,7 @@ import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import { Server } from 'socket.io'
-import { BUTTONS, EV, PHASES } from '../shared/protocol.js'
+import { BUTTONS, EV, PHASES, SLOTS } from '../shared/protocol.js'
 import { getLanIp, listIPv4 } from './network.js'
 import { Room } from './room.js'
 
@@ -35,16 +35,21 @@ if (PROD) {
     process.exit(1)
   }
   app.use(express.static(dist, { index: false }))
-  // single-page app: every other GET (e.g. /controller, /fight) gets index.html
+  // single-page app: every other GET (e.g. /controller, /football) gets index.html
   app.use((req, res, next) => (req.method === 'GET' ? res.sendFile(path.join(dist, 'index.html')) : next()))
 }
 
 // ---------------------------------------------------------------- sockets
-const broadcastRoom = () => io.to('screen').emit(EV.ROOM_UPDATE, room.publicState())
+// screen + phones all get the room state (phones show both players' character picks)
+const broadcastRoom = () => {
+  const state = room.publicState()
+  io.to('screen').emit(EV.ROOM_UPDATE, state)
+  io.to('controllers').emit(EV.ROOM_UPDATE, state)
+}
 const tellPhones = () => {
-  for (const s of room.humanSlots()) {
+  for (const s of SLOTS) {
     const { socketId } = room.slots[s]
-    if (socketId) io.to(socketId).emit(EV.GAME_STATE, { phase: room.phase, slot: s })
+    if (socketId) io.to(socketId).emit(EV.GAME_STATE, { phase: room.phase, slot: s, score: room.score })
   }
 }
 
@@ -61,16 +66,21 @@ io.on('connection', (socket) => {
     broadcastRoom()
   })
 
-  socket.on(EV.SCREEN_STATE, ({ phase } = {}) => {
+  socket.on(EV.SCREEN_STATE, ({ phase, score } = {}) => {
     if (socket.id !== room.screenId || !PHASES.includes(phase)) return
-    room.setPhase(phase)
+    room.setPhase(phase, score)
     broadcastRoom()
     tellPhones()
   })
 
-  socket.on(EV.SCREEN_HIT, ({ slot } = {}) => {
+  socket.on(EV.SCREEN_BUZZ, ({ slot, pattern } = {}) => {
     const target = room.slots[slot]?.socketId
-    if (socket.id === room.screenId && target) io.to(target).emit(EV.HIT, {})
+    if (socket.id === room.screenId && target) io.to(target).emit(EV.BUZZ, { pattern: Array.isArray(pattern) ? pattern.slice(0, 8) : 80 })
+  })
+
+  // keyboard / CPU players have no phone: the screen picks their character
+  socket.on(EV.SCREEN_PICK, ({ slot, characterId } = {}) => {
+    if (socket.id === room.screenId && room.slots[slot]?.type !== 'human' && room.pick(slot, characterId)) broadcastRoom()
   })
 
   // ---- phone controller
@@ -80,7 +90,8 @@ io.on('connection', (socket) => {
     const slot = room.claim(clientId, socket.id)
     if (!slot) return reply({ ok: false, reason: 'full' })
     socket.data.slot = slot
-    reply({ ok: true, slot, phase: room.phase })
+    socket.join('controllers')
+    reply({ ok: true, slot, phase: room.phase, room: room.publicState() })
     io.to('screen').emit(EV.PLAYER_CONNECTED, { slot })
     broadcastRoom()
     console.log(`  📱 phone joined as ${slot.toUpperCase()}`)
@@ -90,6 +101,13 @@ io.on('connection', (socket) => {
     const slot = room.slotOfSocket(socket.id)
     if (!slot || !BUTTONS.includes(button)) return
     io.to('screen').volatile.emit(EV.INPUT, { slot, button, pressed: !!pressed })
+  })
+
+  socket.on(EV.CONTROLLER_PICK, ({ characterId } = {}) => {
+    const slot = room.slotOfSocket(socket.id)
+    if (!slot || room.phase === 'playing' || room.phase === 'paused') return
+    room.pick(slot, characterId)
+    broadcastRoom() // also when refused, so the phone snaps back to the real pick
   })
 
   socket.on(EV.CONTROLLER_PING, ({ ms } = {}) => {
@@ -110,11 +128,20 @@ io.on('connection', (socket) => {
   })
 })
 
+http.on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`\n  ⚠️  Port ${PORT} is already in use: the server is probably already running in another window.`)
+    console.error('     Close that window (or stop it with Ctrl+C) and start again.\n')
+    process.exit(1)
+  }
+  throw err
+})
+
 http.listen(PORT, '0.0.0.0', () => {
   const ip = getLanIp()
   console.log(`\n  🇮🇳 India Speaks server (${PROD ? 'booth / production' : 'development API'}) on port ${PORT}`)
   if (PROD) {
-    console.log(`     Laptop:  http://localhost:${PORT}/fight`)
+    console.log(`     Laptop:  http://localhost:${PORT}/football`)
     console.log(`     Phones:  http://${ip}:${PORT}/controller`)
   } else {
     console.log('     (open the Vite URL printed by "vite"; it proxies /socket.io and /api here)')
