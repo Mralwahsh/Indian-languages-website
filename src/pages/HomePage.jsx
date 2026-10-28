@@ -1,173 +1,268 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { ArrowLeft } from 'lucide-react'
-import Counter from '../components/Counter.jsx'
-import Chakra from '../components/Chakra.jsx'
 import { getArabicWords, getLanguages } from '../services/dataService.js'
 import { scriptFont } from '../config/scripts.js'
 
-// Census of India 2011. TODO: verify wording/numbers.
-const STATS = [
-  { to: 22, suffix: '', label: 'لغة رسمية', sub: 'في دستور الهند', color: 'text-saffron-deep' },
-  { to: 120, suffix: '+', label: 'لغة رئيسية', sub: 'لكلٍّ منها أكثر من 10,000 متحدث', color: 'text-green' },
-  { to: 19500, suffix: '+', label: 'لغة أم', sub: 'سُجّلت في التعداد السكاني', color: 'text-accent' },
-]
+// The page is laid out like the flag: a saffron greeting at the top, the white middle with the
+// navy line, and a green band of activities at the bottom.
+//
+// The centrepiece is the line itself: Devanagari letters hang *from* a line drawn along their tops
+// (the shirorekha), Arabic letters sit *on* their line. So the same word is shown on both sides
+// of one long navy bar: Arabic sitting on it, Hindi hanging from it.
 
-// Front: Hindi + English. Back panel: 15 more (Sanskrit isn't in languages.json, so it's added inline).
-const BANKNOTE_LANGS = ['hindi', 'assamese', 'bengali', 'gujarati', 'kannada', 'kashmiri', 'konkani', 'malayalam', 'marathi', 'nepali', 'odia', 'punjabi', 'tamil', 'telugu', 'urdu']
+// Census of India 2011 / RBI. TODO: verify wording/numbers.
+const STATS = { official: 22, major: 120, mother: '19,500', banknote: 17 }
+
+// Short words so six fit across the screen
+const WORD_IDS = ['kitab', 'duniya', 'waqt', 'qalam', 'khabar', 'safar']
+const GREETING_ORDER = ['hindi', 'tamil', 'bengali', 'urdu', 'malayalam', 'telugu', 'punjabi', 'gujarati', 'kannada', 'odia', 'meitei', 'santali', 'ladakhi', 'marathi', 'assamese']
+const GREETING_MS = 2600
+
+const ACTIVITIES = [
+  { to: '/map', title: 'الخريطة', sub: 'لغة كل ولاية، واسمك بخطّها' },
+  { to: '/game', title: 'خمّن الخط', sub: 'لعبة سريعة من خمس جولات' },
+  { to: '/tour', title: 'جولات 360°', sub: 'تجوّل في الهند بهاتفك' },
+  { to: '/football', title: 'كرة القدم', sub: 'العب بهاتفك ضد صديقك' },
+]
 
 export default function HomePage() {
   const [words, setWords] = useState([])
   const [languages, setLanguages] = useState([])
 
   useEffect(() => {
-    getArabicWords().then((w) => setWords(w.slice(0, 8)))
+    getArabicWords().then((all) => setWords(WORD_IDS.map((id) => all.find((w) => w.id === id)).filter(Boolean)))
     getLanguages().then(setLanguages)
   }, [])
 
-  const noteLangs = [
-    { id: 'english', nativeName: 'English', script: 'latin' },
-    ...languages.filter((l) => BANKNOTE_LANGS.includes(l.id)),
-    { id: 'sanskrit', nativeName: 'संस्कृतम्', script: 'devanagari' },
-  ]
+  const greetings = useMemo(
+    () => GREETING_ORDER.map((id) => languages.find((l) => l.id === id)).filter((l) => l?.helloNative),
+    [languages],
+  )
 
   return (
-    <div className="mx-auto grid h-full max-w-[1800px] grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-10 px-12 py-7">
-      {/* START side: the numbers */}
-      <section className="relative flex min-h-0 flex-col">
-        <Chakra size={300} spin duration={90} className="pointer-events-none absolute -top-16 -end-10 opacity-[0.07]" />
-        <motion.h1
-          className="relative font-display text-5xl leading-[1.3] font-extrabold text-navy 2xl:text-7xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-        >
-          بلدٌ واحد،
-          <br />
-          <span className="bg-gradient-to-l from-saffron-deep via-navy to-green bg-clip-text text-transparent">وأصواتٌ كثيرة!</span>
-        </motion.h1>
-
-        <div className="mt-4 grid grid-cols-3 gap-3">
-          {STATS.map((s, i) => (
-            <motion.div
-              key={s.label}
-              className="rounded-3xl bg-paper p-4 shadow-sm ring-1 ring-ink/5"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.15 + i * 0.12 }}
-            >
-              <Counter
-                to={s.to}
-                suffix={s.suffix}
-                delay={0.2 + i * 0.15}
-                className={`block text-right font-display text-4xl font-extrabold tabular-nums 2xl:text-6xl ${s.color}`}
-                dir="ltr"
-              />
-              <span className="mt-1 block text-2xl leading-tight font-bold">{s.label}</span>
-              <span className="block text-sm leading-snug text-muted">{s.sub}</span>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Banknote fun fact */}
-        <motion.div
-          className="relative mt-4 overflow-hidden rounded-3xl bg-gradient-to-br from-[#ffead3] via-white to-[#dff2da] p-4 ring-1 ring-ink/5 2xl:p-5"
-          initial={{ opacity: 0, rotate: 2, y: 20 }}
-          animate={{ opacity: 1, rotate: 0, y: 0 }}
-          transition={{ delay: 0.6, type: 'spring', stiffness: 120 }}
-        >
-          <div className="flex items-center gap-4">
-            <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/70 text-3xl">💵</span>
-            <p className="text-xl leading-snug font-bold 2xl:text-2xl">
-              العملة الهندية تكتب قيمتها بـ<span className="text-accent">17 لغة!</span>
-            </p>
-          </div>
-          <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-0 text-base leading-relaxed text-ink/60 2xl:text-xl">
-            {noteLangs.map((l, i) => (
-              <motion.span
-                key={l.id}
-                className={`${scriptFont(l.script)} !leading-relaxed`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.9 + i * 0.06 }}
-              >
-                {l.nativeName}
-              </motion.span>
-            ))}
-          </div>
-        </motion.div>
-
-        <div className="flex-1" />
-
-        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.9, type: 'spring' }}>
-          <Link
-            to="/name"
-            className="group mt-4 flex items-center justify-between gap-4 rounded-[2rem] bg-navy px-8 py-5 text-white shadow-[0_20px_50px_-15px_rgba(0,0,128,0.45)] transition hover:-translate-y-0.5 hover:brightness-110 active:scale-[0.98]"
-          >
-            <span className="font-display text-4xl leading-snug font-extrabold 2xl:text-5xl">شاهد اسمك بالخطوط الهندية</span>
-            <motion.span
-              className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-saffron text-navy"
-              animate={{ x: [0, -8, 0] }}
-              transition={{ duration: 1.4, repeat: Infinity }}
-            >
-              <ArrowLeft size={36} strokeWidth={3} />
-            </motion.span>
-          </Link>
-        </motion.div>
-      </section>
-
-      {/* END side: the hook */}
-      <section className="flex min-h-0 flex-col rounded-[2.5rem] bg-paper p-6 shadow-sm ring-1 ring-ink/5 2xl:p-8">
-        <div className="flex items-end justify-between gap-6">
-          <h2 className="font-display text-4xl leading-snug font-extrabold 2xl:text-5xl">
-            أنت تعرف بعض <span className="text-saffron-deep">الهندية</span> مسبقًا!
-          </h2>
-          <p className="pb-1 text-lg text-muted">مرّر على البطاقة لترى الكلمة بالأردية</p>
-        </div>
-
-        <div className="mt-4 grid min-h-0 flex-1 grid-cols-4 grid-rows-2 gap-3 2xl:gap-4">
-          {words.map((w, i) => (
-            <WordCard key={w.id} word={w} index={i} />
-          ))}
-        </div>
-
-        <div className="mt-4 flex items-center gap-5 rounded-3xl bg-green-soft px-6 py-3">
-          <div className="flex shrink-0 items-center gap-3 text-4xl" dir="ltr">
-            <span className="font-deva font-bold">किताब</span>
-            <span className="text-2xl text-ink/40">=</span>
-            <span className="font-urdu text-3xl leading-[1.6]">کتاب</span>
-          </div>
-          <p className="text-xl leading-relaxed">
-            <b>الهندية والأردية</b> تكادان تكونان لغة واحدة في الكلام، والخط فقط مختلف. والهندية ليست إلا <b>واحدة</b> من لغات الهند الكثيرة!
+    <div className="flex h-full flex-col overflow-hidden bg-paper">
+      {/* ---------------------------------------------------------------- top: headline + greeting */}
+      <section className="mx-auto grid min-h-0 w-full max-w-[1800px] flex-[1.05] grid-cols-[minmax(0,1fr)_minmax(0,0.9fr)] items-center gap-[3vw] px-[4vw]">
+        <div>
+          <h1 className="font-display text-[min(6.8vw,11vh)] leading-[1.12] text-navy">
+            بلدٌ واحد،
+            <br />
+            وأصواتٌ كثيرة
+          </h1>
+          <p className="mt-[1.6vh] max-w-[46ch] text-[min(1.6vw,2.8vh)] leading-[1.6] text-ink/80">
+            في الهند <Num>{STATS.official}</Num> لغة رسمية، وأكثر من <Num>{STATS.major}</Num> لغة رئيسية، و<Num>{STATS.mother}</Num> لغة أُمّ سجّلها
+            التعداد. وأوراقها النقدية تكتب قيمتها بـ<Num>{STATS.banknote}</Num> لغة!
           </p>
         </div>
+        <Greeting greetings={greetings} />
       </section>
+
+      {/* ---------------------------------------------------------------- middle: the shared line */}
+      <WordLine words={words} />
+
+      {/* ---------------------------------------------------------------- bottom: green band of activities */}
+      <nav className="shrink-0 bg-green text-white" aria-label="الأنشطة">
+        <div className="mx-auto flex h-[min(17vh,11rem)] w-full max-w-[1800px] items-stretch px-[4vw]">
+          <Link
+            to="/name"
+            className="group my-[2.2vh] flex items-center gap-[1.5vw] rounded-[1.4rem] bg-saffron px-[2.2vw] text-navy shadow-[0_10px_0_#b85c06] transition-[transform,box-shadow] hover:-translate-y-0.5 hover:shadow-[0_12px_0_#b85c06] focus-visible:outline-4 focus-visible:outline-offset-4 focus-visible:outline-white active:translate-y-2 active:shadow-[0_2px_0_#b85c06]"
+          >
+            <span>
+              <span className="block font-display text-[min(3.4vw,6vh)] leading-[1.15]">اكتب اسمك</span>
+              <span className="block text-[min(1.3vw,2.3vh)] font-bold">وشاهده بخمسة خطوط هندية</span>
+            </span>
+            <ArrowLeft className="h-[min(3.4vw,6vh)] w-[min(3.4vw,6vh)] transition-transform group-hover:-translate-x-1" strokeWidth={3} />
+          </Link>
+          <ul className="ms-[2vw] flex flex-1 items-stretch">
+            {ACTIVITIES.map((a) => (
+              <li key={a.to} className="flex flex-1 border-s border-white/25">
+                <Link
+                  to={a.to}
+                  className="flex flex-1 flex-col justify-center px-[1.6vw] transition-colors hover:bg-white/10 focus-visible:bg-white/15 focus-visible:outline-none"
+                >
+                  <span className="font-display text-[min(2.3vw,4.2vh)] leading-[1.25]">{a.title}</span>
+                  <span className="text-[min(1.1vw,2vh)] leading-snug text-white/80">{a.sub}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
     </div>
   )
 }
 
-function WordCard({ word, index }) {
+/** A number inside the stats sentence: set in the poster face, larger, same colour. */
+function Num({ children }) {
   return (
-    <motion.div
-      className="group relative [perspective:1000px]"
-      initial={{ opacity: 0, y: 30, scale: 0.9 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ delay: 0.25 + index * 0.07, type: 'spring', stiffness: 180, damping: 18 }}
-    >
-      <div className="relative h-full w-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-        {/* front: Hindi = Arabic */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center rounded-3xl bg-cream p-3 ring-1 ring-ink/5 [backface-visibility:hidden]">
-          <span className="font-deva text-[2.6rem] leading-[1.35] font-bold text-navy 2xl:text-6xl">{word.hindi}</span>
-          <span className="text-xl leading-none text-ink/30">=</span>
-          <span className="font-arab text-4xl leading-[1.5] font-bold text-green 2xl:text-5xl">{word.arabic}</span>
-        </div>
-        {/* back: Urdu */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center rounded-3xl bg-navy p-3 text-white [backface-visibility:hidden] [transform:rotateY(180deg)]">
-          <span className="text-base font-bold text-saffron">بالأردية</span>
-          <span className="font-urdu text-4xl leading-[1.9] 2xl:text-5xl">{word.urdu}</span>
-          <span className="text-center text-base leading-snug text-white/75">نفس الكلمة، وبحروف عربية!</span>
-        </div>
-      </div>
-    </motion.div>
+    <bdi className="font-display text-[1.45em] leading-none text-navy" dir="ltr">
+      {children}
+    </bdi>
   )
 }
+
+/** One big "hello", changing language every few seconds. */
+function Greeting({ greetings }) {
+  const [i, setI] = useState(0)
+  const reduce = useReducedMotion()
+
+  useEffect(() => {
+    if (greetings.length < 2) return
+    const t = setInterval(() => setI((n) => (n + 1) % greetings.length), GREETING_MS)
+    return () => clearInterval(t)
+  }, [greetings.length])
+
+  const g = greetings[i % Math.max(1, greetings.length)]
+  if (!g) return <div />
+
+  return (
+    <div className="relative flex h-full min-w-0 flex-col items-center justify-center text-center" aria-live="polite" data-fit>
+      <div className="relative grid h-[min(19vw,30vh)] w-full place-items-center">
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.span
+            key={g.id}
+            className="col-start-1 row-start-1 flex w-full justify-center"
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: '18%' }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduce ? { opacity: 0 } : { opacity: 0, y: '-18%' }}
+            transition={{ duration: 0.45, ease: [0.2, 0.8, 0.2, 1] }}
+          >
+            <FitText className={`${scriptFont(g.script)} text-saffron-deep`} lang={g.id}>
+              {g.helloNative}
+            </FitText>
+          </motion.span>
+        </AnimatePresence>
+      </div>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.p
+          key={g.id}
+          className="text-[min(1.7vw,3vh)] text-ink/75"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.25 }}
+        >
+          «{g.helloPronunciationAr}» تعني مرحبًا {g.nameAr.startsWith('ال') ? `ب${g.nameAr}` : `بلغة ${g.nameAr}`}
+        </motion.p>
+      </AnimatePresence>
+    </div>
+  )
+}
+
+/** Text as big as it can be (up to 18vh) while still fitting the width of its parent. */
+function FitText({ children, className, lang }) {
+  const ref = useRef(null)
+  const scaleRef = useRef(1)
+  const [scale, setScale] = useState(1)
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const fit = () => {
+      // width at full size = current width / current scale
+      const natural = el.scrollWidth / scaleRef.current
+      const room = el.closest('[data-fit]').clientWidth * 0.94
+      scaleRef.current = Math.min(1, room / Math.max(1, natural))
+      setScale(scaleRef.current)
+    }
+    fit()
+    const ro = new ResizeObserver(fit)
+    ro.observe(el.closest('[data-fit]'))
+    document.fonts?.ready.then(fit)
+    return () => ro.disconnect()
+  }, [children])
+  return (
+    <span ref={ref} className={`${className} whitespace-nowrap`} style={{ fontSize: `calc(min(9vw, 17vh) * ${scale})`, lineHeight: 1.5 }} lang={lang}>
+      {children}
+    </span>
+  )
+}
+
+/**
+ * The navy bar across the page. Each Arabic word sits on it, the same Hindi word hangs from it.
+ * Hover or tap a word to see it in Urdu too (Urdu = Hindi's spoken twin, written in Arabic letters).
+ */
+function WordLine({ words }) {
+  const [open, setOpen] = useState(null)
+  const reduce = useReducedMotion()
+
+  return (
+    <section className="relative mx-auto flex min-h-0 w-full max-w-[1800px] flex-1 flex-col justify-center px-[4vw]" aria-label="كلمات هندية تعرفها">
+      <div className="grid grid-cols-[minmax(0,1.9fr)_repeat(6,minmax(0,1fr))] items-stretch">
+        {/* heading: it is Arabic too, so it sits on the line like the words */}
+        <div className="flex flex-col justify-end pb-[0.9vh]">
+          <h2 className="font-display text-[min(2.9vw,5.2vh)] leading-[1.2] text-navy">
+            أنت تعرف هذه
+            <br />
+            الكلمات الهندية!
+          </h2>
+        </div>
+        {words.map((w, i) => (
+          <motion.button
+            key={w.id}
+            type="button"
+            onMouseEnter={() => setOpen(w.id)}
+            onMouseLeave={() => setOpen((o) => (o === w.id ? null : o))}
+            onFocus={() => setOpen(w.id)}
+            onBlur={() => setOpen((o) => (o === w.id ? null : o))}
+            onClick={() => setOpen((o) => (o === w.id ? null : w.id))}
+            className="flex cursor-pointer flex-col items-center justify-end rounded-t-2xl pt-[1vh] focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-saffron"
+            initial={reduce ? false : { opacity: 0, y: -24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 + i * 0.07, type: 'spring', stiffness: 260, damping: 22 }}
+            aria-label={`${w.arabic} = ${w.hindi}`}
+          >
+            <span className="font-arab text-[min(3.3vw,6vh)] leading-[1.45] font-bold text-green" style={{ marginBottom: SIT }}>
+              {w.arabic}
+            </span>
+          </motion.button>
+        ))}
+      </div>
+
+      {/* the line */}
+      <motion.div
+        className="h-[min(0.55vw,1vh)] origin-right rounded-full bg-navy"
+        initial={reduce ? false : { scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 0.7, ease: [0.6, 0, 0.2, 1] }}
+      />
+
+      <div className="grid grid-cols-[minmax(0,1.9fr)_repeat(6,minmax(0,1fr))]">
+        <p className="pt-[1.4vh] pe-[1.5vw] text-[min(1.15vw,2.1vh)] leading-[1.6] text-ink/70">
+          حروف الهندية تتدلّى من خطٍّ فوقها، وحروف العربية تجلس على السطر. والكلمة نفسها!
+          <span className="mt-[0.5vh] block font-bold text-saffron-deep">المس كلمة لتراها بالأردية.</span>
+        </p>
+        {words.map((w, i) => (
+          <motion.div
+            key={w.id}
+            className="flex flex-col items-center"
+            initial={reduce ? false : { opacity: 0, y: -18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.55 + i * 0.07, type: 'spring', stiffness: 260, damping: 22 }}
+          >
+            {/* pulled up so the Devanagari headline bar merges into the navy line */}
+            <span className="font-deva text-[min(3.5vw,6.4vh)] leading-none font-bold text-navy" style={{ marginTop: HANG }} lang="hi">
+              {w.hindi}
+            </span>
+            <span
+              className={`mt-[0.2vh] text-center transition-opacity duration-200 ${open === w.id ? 'opacity-100' : 'opacity-0'}`}
+              aria-hidden={open !== w.id}
+            >
+              <span className="block text-[min(1vw,1.8vh)] font-bold text-saffron-deep">بالأردية</span>
+              <span className="font-urdu block text-[min(2.2vw,4vh)] leading-[1.9] text-ink" lang="ur">
+                {w.urdu}
+              </span>
+            </span>
+          </motion.div>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+// Measured against the fonts' metrics so the letters meet the bar exactly:
+// HANG pulls the Hindi word up until its headline stroke starts at the top edge of the bar,
+// SIT pulls the Arabic word down until its baseline is a hair above the bar (tails may cross it, as on ruled paper).
+const HANG = '-0.27em'
+const SIT = '-0.39em'

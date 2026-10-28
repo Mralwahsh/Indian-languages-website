@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource/lalezar";
 @import "./fonts.css";
 
 @theme {
@@ -18,8 +19,9 @@
   --color-accent: #e5560c; /* deep saffron: Reset, wrong answers */
   --color-accent-soft: #fde2d2;
 
-  /* Latin letters come from Bricolage, Arabic letters fall through to the Noto Arabic fonts */
-  --font-display: "Bricolage Grotesque Variable", "IS Kufi", system-ui, sans-serif;
+  /* Headlines: Lalezar, a heavy poster face in the spirit of hand-painted signs (one weight only).
+     Body: Latin from Bricolage, Arabic falls through to Noto Sans Arabic. */
+  --font-display: "Lalezar", "IS Kufi", system-ui, sans-serif;
   --font-sans: "Bricolage Grotesque Variable", "IS ArabSans", system-ui, sans-serif;
   --font-deva: "IS Deva", "Bricolage Grotesque Variable", sans-serif;
   --font-urdu: "IS Urdu", serif;
@@ -54,6 +56,12 @@ body {
 
 input {
   user-select: text;
+}
+
+/* Lalezar has a single (already heavy) weight: never let the browser fake a bolder one */
+.font-display {
+  font-weight: 400;
+  font-synthesis: none;
 }
 
 /* Nastaliq needs extra line height or its descenders get clipped */
