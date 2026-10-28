@@ -39,6 +39,7 @@ A guide stands next to the laptop and walks each visitor through it in 1–2 min
 | 🗺️ **Map** | India's 36 states and union territories coloured by language family, with neighbouring countries in gray. Hover a state for "Hello" in its language; click it to see **the visitor's own name in that state's script** (Telugu, Gujarati, Tibetan, Meitei Mayek…). |
 | 🎮 **Game** | "Guess the Script": 5 quick rounds; pick which of four words is written in, say, Tamil. Speed bonus and today's high score. |
 | 🥋 **India Fighters** | A side-view fighting game on the laptop, **controlled with the visitor's own phone** (no app: scan a QR code, the phone becomes a gamepad). Two original fighters, Veer and Tara, fight in a palace courtyard at sunset: best of 3, special moves, a beatable CPU opponent, and the phone vibrates when you get hit. |
+| 🧭 **Virtual tours** | Walk through real **360° photos** of **Sanchi Stupa** (around all four gates), the **Gateway of India**, the **Ajanta** and **Ellora** caves, **Hyderabad** from the sky and the **Udayagiri Caves**. The visitor's phone becomes a two-stick gamepad: walk with the left stick, look around with the right, plus zoom, facts and next place. Works offline; optional Google Street View. |
 | 💤 **Attract mode** | After 30 s without input, a full-screen Indian-flag loop says "Hello" in many Indian scripts until someone touches the laptop. |
 
 ## 🚀 Quick start
@@ -146,6 +147,7 @@ public/
   data/          india_states.topojson (state borders), neighbors.topojson (gray countries)
   fonts/         Noto .ttf files, used by CSS and by HarfBuzz
 src/
+  tour/          virtual tours: places, config (feel), providers (offline photos / Google Street View), stick → step logic
   pages/         HomePage, MapPage, NamePage, GamePage, FightPage (laptop), ControllerPage (phone)
   components/    TopBar, AttractMode, GlyphText, LetterBreakdown, StatePanel, fight/ (lobby, stage, QR)…
   game/
@@ -172,6 +174,8 @@ All texts shown to visitors are plain JSON in [`src/data/`](src/data). No code c
 | Game words | [`gameRounds.json`](src/data/gameRounds.json) |
 | Hotspot Wi-Fi name / password (Wi-Fi QR code) | [`src/config/booth.json`](src/config/booth.json) |
 | Fighters, moves, damage, real sprite art | [`src/game/characters/`](src/game/characters) ([guide](src/game/characters/README.md)) |
+| Tour places, facts, walking directions | [`src/tour/places.js`](src/tour/places.js) (photos in `public/tours/`) |
+| Tour controls feel (look speed, dead zone, walk interval) | [`src/tour/config.js`](src/tour/config.js) |
 | CPU difficulty, round length | [`src/game/config.js`](src/game/config.js) |
 
 ## 🧭 Roadmap
@@ -216,6 +220,8 @@ The code is ready for a backend (**Node.js + Supabase + OpenRouter**):
 - **Map data:** [DataMeet](https://github.com/datameet/maps) state boundaries (CC BY 2.5 India) and [Natural Earth](https://www.naturalearthdata.com/) countries with India's point of view (public domain).
 - **Fonts:** [Noto](https://notofonts.github.io/) and [Bricolage Grotesque](https://fontsource.org/fonts/bricolage-grotesque) (SIL Open Font License).
 - **Numbers:** Census of India 2011.
+- **360° tour photos** (Wikimedia Commons): Photo Dharma (CC BY 2.0: Sanchi, Ajanta, Ellora, Udayagiri; cropped below 50° down to remove the watermark), Fuzheado (CC BY-SA 4.0: Gateway of India, Taj Mahal Palace hotel), iMahesh (CC BY-SA 4.0: Hyderabad). Each photo's source link is in [`src/tour/places.js`](src/tour/places.js); the credit line is also shown in the tour's info card.
+- **360° viewer:** [Photo Sphere Viewer](https://photo-sphere-viewer.js.org/) (MIT).
 
 <div align="center">
 

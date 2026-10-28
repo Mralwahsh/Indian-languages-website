@@ -15,19 +15,28 @@ import GamePage from './pages/GamePage.jsx'
 // The football game (Phaser) and the phone controller are loaded only when visited.
 const FootballPage = lazy(() => import('./pages/FootballPage.jsx'))
 const ControllerPage = lazy(() => import('./pages/ControllerPage.jsx'))
+// Virtual tours (360° viewer) and their own phone controller, separate from the football one.
+const TourPage = lazy(() => import('./pages/TourPage.jsx'))
+const TourControllerPage = lazy(() => import('./pages/TourControllerPage.jsx'))
+// Team tool: check the Google Street View key and find panoramas (not in the top bar).
+const StreetViewTestPage = lazy(() => import('./pages/StreetViewTestPage.jsx'))
+
+// Pages driven by a phone: no attract mode, and Reset stays on the page (back to its start screen).
+const PHONE_PAGES = ['/football', '/tour']
 
 function Shell() {
   const location = useLocation()
   const navigate = useNavigate()
   const { reset, resetKey } = useVisitor()
-  // During a match the laptop gets no mouse/keyboard input (players use phones): no attract mode there.
-  const onGame = location.pathname === '/football'
-  const idle = useIdle(BOOTH.idleSeconds, !onGame)
+  // During a match or tour the laptop gets no mouse/keyboard input (visitors use phones): no attract mode there.
+  const onPhonePage = PHONE_PAGES.includes(location.pathname)
+  const idle = useIdle(BOOTH.idleSeconds, !onPhonePage)
 
-  // Reset = new visitor. On the football page it ends the match and goes back to its lobby.
+  // Reset = new visitor. On the football page it ends the match and goes back to its lobby;
+  // on the tour page it leaves the 360° view and goes back to the map of places.
   const resetAll = useCallback(() => {
     reset()
-    if (window.location.pathname !== '/football') navigate('/')
+    if (!PHONE_PAGES.includes(window.location.pathname)) navigate('/')
   }, [reset, navigate])
 
   // Esc = new visitor (works everywhere, including inside inputs)
@@ -73,6 +82,14 @@ function Shell() {
                     </Suspense>
                   }
                 />
+                <Route
+                  path="/tour"
+                  element={
+                    <Suspense fallback={null}>
+                      <TourPage />
+                    </Suspense>
+                  }
+                />
                 <Route path="*" element={<HomePage />} />
               </Routes>
             </ErrorBoundary>
@@ -94,6 +111,22 @@ export default function App() {
           element={
             <Suspense fallback={null}>
               <ControllerPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/streetview-test"
+          element={
+            <Suspense fallback={null}>
+              <StreetViewTestPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/tour-controller"
+          element={
+            <Suspense fallback={null}>
+              <TourControllerPage />
             </Suspense>
           }
         />

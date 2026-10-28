@@ -12,6 +12,7 @@ import { Server } from 'socket.io'
 import { BUTTONS, EV, PHASES, SLOTS } from '../shared/protocol.js'
 import { getLanIp, listIPv4 } from './network.js'
 import { Room } from './room.js'
+import { setupTour } from './tour.js'
 
 // SERVER_PORT, not PORT: tools and hosting setups often set PORT for other programs
 const PORT = Number(process.env.SERVER_PORT) || 3000
@@ -40,6 +41,9 @@ if (PROD) {
 }
 
 // ---------------------------------------------------------------- sockets
+// virtual tours live in their own namespace (/tour) so they never interfere with the game
+setupTour(io)
+
 // screen + phones all get the room state (phones show both players' character picks)
 const broadcastRoom = () => {
   const state = room.publicState()
@@ -143,6 +147,7 @@ http.listen(PORT, '0.0.0.0', () => {
   if (PROD) {
     console.log(`     Laptop:  http://localhost:${PORT}/football`)
     console.log(`     Phones:  http://${ip}:${PORT}/controller`)
+    console.log(`     Tours:   http://localhost:${PORT}/tour  (phone: http://${ip}:${PORT}/tour-controller)`)
   } else {
     console.log('     (open the Vite URL printed by "vite"; it proxies /socket.io and /api here)')
   }

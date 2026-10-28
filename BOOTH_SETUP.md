@@ -132,3 +132,85 @@ npm run dev
 This starts the Node server (port 3000) and Vite (port 5173, reachable from the network) together. Open `http://localhost:5173/fight`. The QR code then points to port 5173, and Vite forwards the game traffic to the Node server. Remember the firewall rule for 5173.
 
 Debug helpers: add `?timer=1` to the `/fight` URL to keep the game running in a background tab. In development builds the game scene is available as `window.__fightScene` in the console.
+
+---
+
+## 7. Virtual tours (`/tour`)
+
+Visitors walk through 360° photos of places in India with a phone that works like a gamepad. It uses the same hotspot, firewall rule and server as the football game, but its **own controller page**: the football `/controller` is not affected.
+
+```
+ Laptop:  http://localhost:3000/tour
+ Phones:  http://192.168.137.1:3000/tour-controller   (the QR code on the tour screen)
+```
+
+1. Open **http://localhost:3000/tour** (or click **جولات** in the top bar).
+2. The visitor joins the booth Wi-Fi (small QR), then scans the big QR and turns the phone sideways.
+3. On the map, the **left stick** picks a place (← →) and pushing it **up** enters the tour.
+
+### The phone controller
+
+| Control | What it does |
+| --- | --- |
+| Left stick (orange) | **Up**: walk forward to the next viewpoint in the direction you are looking (keeps walking every 0.8 s while held). **Left / right**: step to a side path. **Down**: turn around. |
+| Right stick (blue) | Look around. The further you push, the faster it turns. It eases to a stop when you let go. |
+| ⊕ / ⊖ | Zoom in / out while held |
+| ℹ️ | Facts about the place on the laptop screen (press again to hide) |
+| ⏭️ | Next place |
+| 🗺️ | Back to the map |
+
+The phone buzzes briefly on every step and twice when there is no path that way. **Only one phone controls the tour at a time.** A second phone shows "شخص آخر يتحكم بالجولة" and takes over automatically when the first one leaves (a phone that drops out keeps its seat for 15 s so it can reconnect).
+
+### Keys on the laptop (testing without a phone)
+
+| Key | Action |
+| --- | --- |
+| **W A S D** | Move stick (on the map: A / D choose a place, W enters) |
+| **Arrow keys** | Look around |
+| **+ / −** | Zoom |
+| **I** | Facts |
+| **N** | Next place |
+| **Esc** | Back to the map |
+
+### Offline photos or Google Street View
+
+The booth default is **offline**: 23 freely licensed 360° photos in `public/tours/` for 6 places (Sanchi Stupa, Gateway of India, Ajanta Caves, Ellora Caves, Hyderabad, Udayagiri Caves), with no internet needed.
+
+All of them are full 360° photos. The Sanchi, Ajanta, Ellora and Udayagiri ones are cropped a little below the horizon (their bottom had a watermark and the photographer), so the view stops about 15° down. Free 360° photos of the Taj Mahal, Meenakshi Temple, Kailasa or the root bridges don't exist yet; to add a place later, drop its 360° photo(s) in `public/tours/` and add an entry to `src/tour/places.js`.
+
+Google Street View can be used instead when the laptop has internet:
+
+1. Create a Google Maps API key with **Maps JavaScript API** enabled, and restrict it to your domain / `localhost`.
+2. Put it in a file named **`.env.local`** in the project folder (this file is not committed):
+   ```
+   VITE_GOOGLE_MAPS_API_KEY=your-key-here
+   ```
+3. In [`src/tour/config.js`](src/tour/config.js) set `provider: 'auto'` (Street View when online, offline photos otherwise) or `'google'`.
+4. Rebuild with `npm start`. If Google fails to load, or rejects the key, the tour falls back to the offline photos by itself.
+
+**Test page: `/streetview-test`** (e.g. http://localhost:5173/streetview-test, not in the top bar). Use it to check the key before the event:
+
+- The chips at the top say whether the key is set, the laptop is online, the Google script loaded and **whether Google accepted the key**. Google finds panoramas even with a bad key and only refuses when it draws one, so "Key: accepted" appears only after a panorama is actually shown.
+- Pick a ready-made place (Taj Mahal, Meenakshi, Kailasa, the root bridges, the Golden Temple… and the current tour places in green) or type a latitude / longitude. Set the search radius, and tick "outdoor only" to skip visitors' photo spheres.
+- It shows the panorama id, distance, date, author and how many walkable neighbours it has. Walk and look around with the same keys as the tour (W A S D, arrows, + / −).
+- **Copy** gives a ready line such as `google: { panoId: '…', heading: 120 },` for that place in [`src/tour/places.js`](src/tour/places.js), so the tour opens exactly on that panorama, facing that way.
+
+All the "feel" settings (stick dead zone, look speed, smoothing, walk interval, zoom speed, keys) are in [`src/tour/config.js`](src/tour/config.js). Places, facts and walking directions are in [`src/tour/places.js`](src/tour/places.js).
+
+### Test with a real phone before the event
+
+- [ ] Scan the tour QR: the controller opens, shows the place name at the top and a green dot.
+- [ ] Hold the phone upright: the "turn your phone" screen appears; sideways: the controls come back.
+- [ ] Both sticks at the same time (walk + look) work with two thumbs.
+- [ ] Look stick: smooth turning, stops gently on release, can't look past straight up/down.
+- [ ] Walk all the way around Sanchi Stupa (south → east → north → west gate) and down into the Ajanta caves; the phone buzzes once per step.
+- [ ] Look all the way around and up/down in each place: no black areas.
+- [ ] Walk into a wall: double buzz and "لا يوجد طريق في هذا الاتجاه" on the laptop.
+- [ ] Pull the left stick down: a smooth 180° turn.
+- [ ] Hold ⊕ / ⊖, then ℹ️, ⏭️ and 🗺️.
+- [ ] No page zoom, scrolling, text selection or long-press menu while playing.
+- [ ] A second phone shows the "wait for your turn" screen, and takes over after the first phone closes the page.
+- [ ] Lock the first phone for a few seconds, then unlock: it reconnects and still controls the tour.
+- [ ] The football `/controller` still works as before.
+
+Debug helper: add `?timer=1` to the `/tour` URL to keep the tour running in a background tab. In development builds the active tour is available as `window.__tour`.

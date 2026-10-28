@@ -10,6 +10,7 @@ const NAV = [
   { to: '/map', label: 'الخريطة' },
   { to: '/name', label: 'اسمك' },
   { to: '/game', label: 'اللعبة' },
+  { to: '/tour', label: 'جولات' },
   { to: '/football', label: 'كرة القدم' },
 ]
 
