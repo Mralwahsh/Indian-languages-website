@@ -1,0 +1,1100 @@
+{
+ "id": "jana-gana-mana",
+ "title": "Jana Gana Mana",
+ "titleAr": "جانا غانا مانا",
+ "titleNative": "जन गण मन",
+ "mode": "respectful",
+ "tempo": 125,
+ "about": "النشيد الوطني للهند، من كلمات رابندراناث طاغور.",
+ "source": "Melody of Jana Gana Mana by Rabindranath Tagore, from the public-domain score harmonized by Herbert Murrill (1950) on Wikimedia Commons; see songs-src/",
+ "notes": [
+  {
+   "pitch": 60,
+   "time": 0,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 0.241,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 64,
+   "time": 0.481,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 64,
+   "time": 0.722,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 64,
+   "time": 0.963,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 64,
+   "time": 1.204,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 64,
+   "time": 1.444,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 64,
+   "time": 1.685,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 1.926,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 64,
+   "time": 2.407,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 64,
+   "time": 2.648,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 62,
+   "time": 2.889,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 64,
+   "time": 3.13,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 65,
+   "time": 3.37,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 64,
+   "time": 3.852,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 64,
+   "time": 4.333,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 64,
+   "time": 4.574,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 62,
+   "time": 4.815,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 62,
+   "time": 5.296,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 62,
+   "time": 5.537,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 59,
+   "time": 5.778,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 6.019,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 60,
+   "time": 6.259,
+   "dur": 0.886,
+   "onBeat": true,
+   "hold": true,
+   "lane": 1
+  },
+  {
+   "pitch": 60,
+   "time": 7.222,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 67,
+   "time": 7.704,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 67,
+   "time": 8.185,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 67,
+   "time": 8.426,
+   "dur": 0.443,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 67,
+   "time": 8.907,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 67,
+   "time": 9.148,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 67,
+   "time": 9.389,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 67,
+   "time": 9.63,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 67,
+   "time": 10.111,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 66,
+   "time": 10.352,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 67,
+   "time": 10.593,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 66,
+   "time": 10.833,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 67,
+   "time": 11.074,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 65,
+   "time": 11.556,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 65,
+   "time": 12.037,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 65,
+   "time": 12.278,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 65,
+   "time": 12.519,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 65,
+   "time": 13,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 13.241,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 62,
+   "time": 13.481,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 65,
+   "time": 13.722,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 64,
+   "time": 13.963,
+   "dur": 1.329,
+   "onBeat": true,
+   "hold": true,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 15.407,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 15.889,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 16.13,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 64,
+   "time": 16.37,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 64,
+   "time": 16.852,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 62,
+   "time": 17.093,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 67,
+   "time": 17.333,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 67,
+   "time": 17.574,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 67,
+   "time": 17.815,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 65,
+   "time": 18.056,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 65,
+   "time": 18.296,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 65,
+   "time": 18.778,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 64,
+   "time": 19.259,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 64,
+   "time": 19.741,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 64,
+   "time": 19.981,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 62,
+   "time": 20.222,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 20.704,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 20.944,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 59,
+   "time": 21.185,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 62,
+   "time": 21.426,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 60,
+   "time": 21.667,
+   "dur": 1.329,
+   "onBeat": true,
+   "hold": true,
+   "lane": 2
+  },
+  {
+   "pitch": 64,
+   "time": 23.111,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 64,
+   "time": 23.352,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 64,
+   "time": 23.593,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 64,
+   "time": 23.833,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 64,
+   "time": 24.074,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 64,
+   "time": 24.556,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 62,
+   "time": 24.796,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 62,
+   "time": 25.037,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 64,
+   "time": 25.278,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 65,
+   "time": 25.518,
+   "dur": 1.329,
+   "onBeat": true,
+   "hold": true,
+   "lane": 3
+  },
+  {
+   "pitch": 64,
+   "time": 26.963,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 65,
+   "time": 27.204,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 67,
+   "time": 27.444,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 67,
+   "time": 27.685,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 67,
+   "time": 27.926,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 65,
+   "time": 28.407,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 28.648,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 28.889,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 65,
+   "time": 29.13,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 64,
+   "time": 29.37,
+   "dur": 1.329,
+   "onBeat": true,
+   "hold": true,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 30.815,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 31.296,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 62,
+   "time": 31.778,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 32.018,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 62,
+   "time": 32.259,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 32.5,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 59,
+   "time": 32.741,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 32.981,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 60,
+   "time": 33.222,
+   "dur": 1.329,
+   "onBeat": true,
+   "hold": true,
+   "lane": 2
+  },
+  {
+   "pitch": 67,
+   "time": 34.667,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 67,
+   "time": 34.907,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 67,
+   "time": 35.148,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 67,
+   "time": 35.389,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 67,
+   "time": 35.63,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 67,
+   "time": 36.111,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 66,
+   "time": 36.352,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 67,
+   "time": 36.593,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 67,
+   "time": 37.074,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 67,
+   "time": 37.315,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 66,
+   "time": 37.556,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 69,
+   "time": 37.796,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 67,
+   "time": 38.037,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 65,
+   "time": 38.518,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 65,
+   "time": 39,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 65,
+   "time": 39.241,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 39.481,
+   "dur": 0.443,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 64,
+   "time": 39.963,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 64,
+   "time": 40.204,
+   "dur": 0.12,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 65,
+   "time": 40.324,
+   "dur": 0.12,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 40.444,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 65,
+   "time": 40.685,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 64,
+   "time": 40.926,
+   "dur": 0.886,
+   "onBeat": true,
+   "hold": true,
+   "lane": 2
+  },
+  {
+   "pitch": 71,
+   "time": 41.889,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 71,
+   "time": 42.13,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 72,
+   "time": 42.37,
+   "dur": 1.329,
+   "onBeat": true,
+   "hold": true,
+   "lane": 3
+  },
+  {
+   "pitch": 71,
+   "time": 43.815,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 69,
+   "time": 44.056,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 71,
+   "time": 44.296,
+   "dur": 1.329,
+   "onBeat": true,
+   "hold": true,
+   "lane": 1
+  },
+  {
+   "pitch": 67,
+   "time": 45.741,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 67,
+   "time": 45.981,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 69,
+   "time": 46.222,
+   "dur": 1.771,
+   "onBeat": true,
+   "hold": true,
+   "lane": 3
+  },
+  {
+   "pitch": 60,
+   "time": 48.148,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 57,
+   "time": 48.389,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 48.63,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 62,
+   "time": 48.87,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 49.111,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 64,
+   "time": 49.352,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 62,
+   "time": 49.593,
+   "dur": 0.221,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 64,
+   "time": 49.833,
+   "dur": 0.221,
+   "onBeat": false,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 65,
+   "time": 50.074,
+   "dur": 1.771,
+   "onBeat": true,
+   "hold": true,
+   "lane": 2
+  }
+ ]
+}

@@ -1,0 +1,290 @@
+{
+ "id": "placeholder-classic",
+ "title": "Placeholder – classic test",
+ "titleAr": "لحن تجريبي (كلاسيكي)",
+ "mode": "classic",
+ "tempo": 100,
+ "source": "Original test melody written for this game (placeholder), converted with scripts/midi-to-song.js",
+ "notes": [
+  {
+   "pitch": 64,
+   "time": 0,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 67,
+   "time": 0.6,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 69,
+   "time": 1.2,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 67,
+   "time": 1.8,
+   "dur": 0.27,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 64,
+   "time": 2.1,
+   "dur": 0.27,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 2.4,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 3,
+   "dur": 0.27,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 3.3,
+   "dur": 0.27,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 60,
+   "time": 3.6,
+   "dur": 1.08,
+   "onBeat": true,
+   "hold": true,
+   "lane": 1
+  },
+  {
+   "pitch": 67,
+   "time": 4.8,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 69,
+   "time": 5.4,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 72,
+   "time": 6,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 69,
+   "time": 6.6,
+   "dur": 0.27,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 67,
+   "time": 6.9,
+   "dur": 0.27,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 69,
+   "time": 7.2,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 67,
+   "time": 7.8,
+   "dur": 0.27,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 8.1,
+   "dur": 0.27,
+   "onBeat": false,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 67,
+   "time": 8.4,
+   "dur": 1.08,
+   "onBeat": true,
+   "hold": true,
+   "lane": 2
+  },
+  {
+   "pitch": 72,
+   "time": 9.6,
+   "dur": 0.27,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 74,
+   "time": 9.9,
+   "dur": 0.27,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 72,
+   "time": 10.2,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 69,
+   "time": 10.8,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 67,
+   "time": 11.4,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 69,
+   "time": 12,
+   "dur": 0.27,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 67,
+   "time": 12.3,
+   "dur": 0.27,
+   "onBeat": false,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 12.6,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 13.2,
+   "dur": 1.08,
+   "onBeat": true,
+   "hold": true,
+   "lane": 0
+  },
+  {
+   "pitch": 64,
+   "time": 14.4,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 67,
+   "time": 15,
+   "dur": 0.27,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 64,
+   "time": 15.3,
+   "dur": 0.27,
+   "onBeat": false,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 62,
+   "time": 15.6,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 0
+  },
+  {
+   "pitch": 60,
+   "time": 16.2,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 1
+  },
+  {
+   "pitch": 62,
+   "time": 16.8,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 3
+  },
+  {
+   "pitch": 64,
+   "time": 17.4,
+   "dur": 0.54,
+   "onBeat": true,
+   "hold": false,
+   "lane": 2
+  },
+  {
+   "pitch": 60,
+   "time": 18,
+   "dur": 1.08,
+   "onBeat": true,
+   "hold": true,
+   "lane": 1
+  }
+ ]
+}

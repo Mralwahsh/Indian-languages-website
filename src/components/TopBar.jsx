@@ -12,6 +12,7 @@ const NAV = [
   { to: '/game', label: 'اللعبة' },
   { to: '/tour', label: 'جولات' },
   { to: '/football', label: 'كرة القدم' },
+  { to: '/tiles-qr', label: 'بيانو' }, // Raga Tiles: the laptop shows only a QR code (Esc comes back)
 ]
 
 export default function TopBar({ onReset }) {

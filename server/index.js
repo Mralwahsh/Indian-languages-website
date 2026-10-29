@@ -35,6 +35,8 @@ if (PROD) {
     console.error('\n  dist/ not found. Run "npm run build" first (or use "npm start").\n')
     process.exit(1)
   }
+  // the phone piano game is a separate small page, not part of the single-page app
+  app.get(['/tiles', '/tiles/'], (_req, res) => res.sendFile(path.join(dist, 'tiles.html')))
   app.use(express.static(dist, { index: false }))
   // single-page app: every other GET (e.g. /controller, /football) gets index.html
   app.use((req, res, next) => (req.method === 'GET' ? res.sendFile(path.join(dist, 'index.html')) : next()))

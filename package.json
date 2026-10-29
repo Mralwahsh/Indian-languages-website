@@ -11,7 +11,8 @@
     "serve": "node server/index.js --prod",
     "booth": "npm start",
     "preview": "vite preview",
-    "lint": "oxlint src server shared"
+    "lint": "oxlint src server shared scripts",
+    "song": "node scripts/midi-to-song.js"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",

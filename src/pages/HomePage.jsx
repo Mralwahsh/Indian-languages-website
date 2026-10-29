@@ -25,6 +25,7 @@ const ACTIVITIES = [
   { to: '/game', title: 'خمّن الخط', sub: 'لعبة سريعة من خمس جولات' },
   { to: '/tour', title: 'جولات 360°', sub: 'تجوّل في الهند بهاتفك' },
   { to: '/football', title: 'كرة القدم', sub: 'العب بهاتفك ضد صديقك' },
+  { to: '/tiles-qr', title: 'راغا تايلز', sub: 'بيانو على هاتفك' },
 ]
 
 export default function HomePage() {

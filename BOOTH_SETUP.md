@@ -214,3 +214,79 @@ All the "feel" settings (stick dead zone, look speed, smoothing, walk interval, 
 - [ ] The football `/controller` still works as before.
 
 Debug helper: add `?timer=1` to the `/tour` URL to keep the tour running in a background tab. In development builds the active tour is available as `window.__tour`.
+
+---
+
+## 8. Raga Tiles (`/tiles-qr` on the laptop, `/tiles` on phones)
+
+A piano-tiles game that visitors play **on their own phones**, as many at once as you like. The laptop only shows a QR code; the game and its music run on each phone (sound comes from the phone's speaker, never the laptop).
+
+```
+ Laptop:  http://localhost:3000/tiles-qr       (only the big QR code; Esc goes back to the site)
+ Phones:  http://192.168.137.1:3000/tiles      (what the QR code opens)
+```
+
+1. Open **http://localhost:3000/tiles-qr** on the laptop (fullscreen with F11).
+2. Visitors join the booth Wi-Fi first (the Wi-Fi QR is on the other pages, e.g. the tour or football screen), then scan this QR code.
+3. On the phone: wait for the short loading bar → **اضغط للبدء** (Tap to start; this also switches the sound on) → pick a song and Easy / Normal.
+
+The phone downloads everything once (about 110 KB: the game, one font and the songs, nothing else from the site). After that it needs no network at all: no server calls, no sockets, so a Wi-Fi drop mid-song changes nothing.
+
+**Sound tip for iPhones:** Web audio is muted when the **silent switch** (side of the iPhone) is on. The game shows "لا يوجد صوت؟ أطفئ الوضع الصامت 🔔"; flip the switch and turn the volume up.
+
+### The two kinds of song
+
+| Mode | How it plays |
+| --- | --- |
+| **Respectful** (the National Anthem) | The melody plays by itself from start to finish at its normal tempo, and the tiles fall with it. Tapping only adds points and a soft glow; missing never stops the music. No fail sound, no game over, no speed-up, no effects. A calm screen before ("Jana Gana Mana", one line about Tagore) and a calm "شكرًا لك" at the end. |
+| **Classic** | The first tile waits for a tap; then each correct tap plays that tile's note (hold the long tiles). Missing a tile or tapping an empty lane ends the round → "حاول مرة أخرى". |
+
+Easy shows fewer tiles (only notes on the beat; in classic the notes in between play by themselves after the tap). Best scores are saved per song and difficulty on each phone.
+
+### Add a song from a MIDI file
+
+Songs are JSON files in `public/songs/`, listed in `public/songs/index.json` (respectful songs are always shown first). The converter writes both:
+
+```bash
+npm run song -- path/to/song.mid --title "Song name" --title-ar "اسم الأغنية"
+```
+
+**The National Anthem is included**: its melody (Rabindranath Tagore) comes from the public-domain score harmonized by Herbert Murrill (1950) on Wikimedia Commons, played at the official length of about 52 seconds. How it was made, and the source files, are in [`songs-src/`](songs-src/README.md). To use a different MIDI of it instead:
+
+```bash
+npm run song -- path/to/jana-gana-mana.mid --preset anthem
+```
+
+The preset sets the id `jana-gana-mana`, the titles, the one-line intro and **respectful** mode, and overwrites the current file. Run `npm start` again to rebuild.
+
+The converter prints every track of the MIDI file and picks the melody (the highest non-drum track). Useful options:
+
+| Option | When |
+| --- | --- |
+| `--track 2` | It picked the wrong track: choose the melody track from the printed list |
+| `--min-gap 0.16` | It warns that notes are too fast: drop ornaments closer than this |
+| `--tempo-scale 0.9` | Play slower (0.9) or faster (1.1) |
+| `--transpose -12` | Move up or down (it already moves the melody into a comfortable piano range) |
+| `--mode respectful` | Any other song that must play uninterrupted |
+| `--dry-run` | Only print what it would do |
+
+Use only MIDI files you are allowed to use (public domain, or your own arrangement). The classic "لحن تجريبي" song is an original test tune.
+
+Melodies written as LilyPond notation (common on Wikipedia/Commons) can be turned into MIDI first with `node scripts/lilypond-melody-to-midi.js melody.ly out.mid --relative "c''" --seconds 52` (the melody line only).
+
+### Tapping
+
+A tile counts when you touch the tile itself or near it: half a tile above or below it, and a little into the lanes beside it. Tiles can be tapped early, before they reach the line (they then score "جيد" instead of "ممتاز"). Tapping a tile you have just played again doesn't count as a mistake. The sizes are in `TOUCH` and `TILE_SEC` in [`src/tiles/config.js`](src/tiles/config.js).
+
+### Test with real phones before the event
+
+- [ ] Scan the QR on `/tiles-qr`: the loading bar finishes, then "اضغط للبدء".
+- [ ] Sound plays on an Android phone and on an iPhone (silent switch off).
+- [ ] Classic: tap the first tile to start; a wrong tap ends the round; "حاول مرة أخرى" restarts.
+- [ ] Hold tiles: holding keeps the note sounding; two fingers at once work.
+- [ ] Respectful: put the phone down without tapping: the melody plays to the end and "شكرًا لك" appears.
+- [ ] Turn Wi-Fi off after the song list appears: everything still works.
+- [ ] Three or four phones playing at the same time.
+- [ ] No page zoom, scrolling or long-press menu while playing; turning the phone sideways shows "أمسك الهاتف بشكل عمودي".
+
+Debug helper: `/tiles?timer=1` keeps the game running in a background tab (for testing on the laptop).

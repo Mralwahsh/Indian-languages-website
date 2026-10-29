@@ -40,6 +40,7 @@ A guide stands next to the laptop and walks each visitor through it in 1–2 min
 | 🎮 **Game** | "Guess the Script": 5 quick rounds; pick which of four words is written in, say, Tamil. Speed bonus and today's high score. |
 | 🥋 **India Fighters** | A side-view fighting game on the laptop, **controlled with the visitor's own phone** (no app: scan a QR code, the phone becomes a gamepad). Two original fighters, Veer and Tara, fight in a palace courtyard at sunset: best of 3, special moves, a beatable CPU opponent, and the phone vibrates when you get hit. |
 | 🧭 **Virtual tours** | Walk through real **360° photos** of **Sanchi Stupa** (around all four gates), the **Gateway of India**, the **Ajanta** and **Ellora** caves, **Hyderabad** from the sky and the **Udayagiri Caves**. The visitor's phone becomes a two-stick gamepad: walk with the left stick, look around with the right, plus zoom, facts and next place. Works offline; optional Google Street View. |
+| 🎹 **Raga Tiles** | A piano-tiles game played on visitors' **own phones** (the laptop only shows a QR code at `/tiles-qr`). Synthesized piano, rangoli-style tiles, Easy / Normal, best scores per phone. Songs come from MIDI files (`npm run song`); the National Anthem plays in a respectful mode that can never be interrupted. The phone page is a separate ~110 KB bundle that works offline once loaded. |
 | 💤 **Attract mode** | After 30 s without input, a full-screen Indian-flag loop says "Hello" in many Indian scripts until someone touches the laptop. |
 
 ## 🚀 Quick start

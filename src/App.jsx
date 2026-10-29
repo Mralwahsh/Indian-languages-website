@@ -20,6 +20,8 @@ const TourPage = lazy(() => import('./pages/TourPage.jsx'))
 const TourControllerPage = lazy(() => import('./pages/TourControllerPage.jsx'))
 // Team tool: check the Google Street View key and find panoramas (not in the top bar).
 const StreetViewTestPage = lazy(() => import('./pages/StreetViewTestPage.jsx'))
+// Raga Tiles: the laptop only shows a QR code; the game itself is the separate /tiles page (tiles.html).
+const TilesQrPage = lazy(() => import('./pages/TilesQrPage.jsx'))
 
 // Pages driven by a phone: no attract mode, and Reset stays on the page (back to its start screen).
 const PHONE_PAGES = ['/football', '/tour']
@@ -111,6 +113,14 @@ export default function App() {
           element={
             <Suspense fallback={null}>
               <ControllerPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/tiles-qr"
+          element={
+            <Suspense fallback={null}>
+              <TilesQrPage />
             </Suspense>
           }
         />
