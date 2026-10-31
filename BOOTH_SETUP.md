@@ -290,3 +290,58 @@ A tile counts when you touch the tile itself or near it: half a tile above or be
 - [ ] No page zoom, scrolling or long-press menu while playing; turning the phone sideways shows "أمسك الهاتف بشكل عمودي".
 
 Debug helper: `/tiles?timer=1` keeps the game running in a background tab (for testing on the laptop).
+
+---
+
+## 9. India & Chess (`/chess`) and the Puzzle Challenge (`/chess/puzzles`)
+
+```
+ Laptop:  http://localhost:3000/chess            (top bar: شطرنج)
+ Phones:  http://192.168.137.1:3000/chess/puzzles (the QR code at the bottom of /chess)
+```
+
+`/chess` is a short scrolling page: the countdown to the World Championship match, how the Chaturanga pieces became today's pieces (tap or hover a piece), the journey India → Persia → Arab world → Europe → the world, and a timeline. At the bottom: **ابدأ تحدّي الألغاز** (plays on the same device), a QR code to play on a phone, and **today's top solvers**, which refresh every 5 seconds.
+
+The **Puzzle Challenge** is a 15-level ladder: mate in 1 (levels 1–6), mate in 2 (7–12), mate in 3 (13–15). Three lives for the whole run; a wrong move costs one and the board shakes. At zero lives the answer is shown, then the end screen. Solving all 15 gives the "غراندماستر!" screen. The page is its own small download (about 450 KB) and needs no network after it has loaded, except to send the final score.
+
+### Leaderboard
+
+- Kept on the laptop in `data/chess-leaderboard.json`: today's results only; it starts empty every day by itself.
+- Ranking: most levels completed, then the fastest total time. Each name appears once (its best run).
+- **Clear it:** on the laptop, on the `/chess` page, press **Shift + R three times** quickly and confirm. This only works on the laptop itself; phones can't clear it.
+- If a phone loses Wi-Fi at the end of a run, its score waits on the phone and is sent automatically later.
+
+### Puzzles
+
+Every puzzle is checked by `npm run puzzles`, and again at the start of every `npm run build` / `npm start`. The build stops if a puzzle is wrong. It checks, by trying every defence:
+- the position is legal;
+- the mate is forced in exactly the stated number of moves;
+- any other move that also mates in time is accepted as correct;
+- every answer line ends in checkmate (double-checked with chess.js).
+
+It then measures each puzzle's difficulty and puts it on a level, printing a report (puzzles per level). The list you edit is [`puzzle-sources/puzzles.json`](puzzle-sources/README.md); the game reads the generated `public/puzzles/puzzles.json`.
+
+**Add puzzles from real games** (e.g. Anand's or Gukesh's games): put the PGN files in `puzzle-sources/`, then
+
+```bash
+npm run puzzles:pgn -- puzzle-sources/anand.pgn --scan
+```
+
+It lists every position where the side to move has a forced mate in 1–3 (or use `--move 31` / `--move 31 --side b` for one position). Add `--add` to save them, then run `npm run puzzles` to verify them and see which level each lands on. Puzzles from real games show a "هل تعلم؟" card with the player, event and year after they are solved.
+
+**More original puzzles:** `npm run puzzles:generate` constructs new positions until every tier has 11 (options: `--per-tier 15`, `--tier 5 --count 4`).
+
+**Testing:** open `/chess/puzzles?test`. **A** plays the correct move (such runs are never sent to the leaderboard) and **W** plays a wrong one.
+
+The match date, the history texts and the timeline are in [`src/config/chess.js`](src/config/chess.js); everything marked `TODO: verify` there must be checked before the event.
+
+### Test with real phones before the event
+
+- [ ] Scan the QR at the bottom of `/chess`: the challenge opens; play as a guest and with a nickname.
+- [ ] Tap a piece then a square, and drag a piece: both work; legal moves show as dots.
+- [ ] A mate in 2: after your first move, the opponent answers by itself.
+- [ ] A wrong move shakes the board and removes a ♟️; at zero the answer plays, then the end screen.
+- [ ] The score appears on `/chess` within a few seconds.
+- [ ] Turn the phone's Wi-Fi off before finishing a run: the end screen says the score will be sent later; turn Wi-Fi on: it arrives.
+- [ ] `/chess` scrolls on a phone and the top bar menu slides sideways.
+- [ ] Shift+R ×3 on the laptop clears the list.

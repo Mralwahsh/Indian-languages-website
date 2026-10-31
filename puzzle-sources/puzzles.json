@@ -1,0 +1,424 @@
+{
+ "puzzles": [
+  {
+   "id": "orig-t1-01-192d",
+   "fen": "4rk2/2B3p1/6K1/8/2Q5/8/8/8 w - - 0 1",
+   "type": "mate1",
+   "genTier": 1,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t4-01-25q3",
+   "fen": "6k1/8/2R1nBP1/3K4/8/8/8/8 w - - 0 1",
+   "type": "mate2",
+   "genTier": 4,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t2-01-zx2f",
+   "fen": "1k6/5prp/2q5/5p2/8/1B6/4PP2/5K2 b - - 0 1",
+   "type": "mate1",
+   "genTier": 2,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t1-02-u0y5",
+   "fen": "6k1/8/4RPK1/5R2/1P6/8/8/8 w - - 0 1",
+   "type": "mate1",
+   "genTier": 1,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t5-01-1xb3",
+   "fen": "8/k7/8/1K6/2R5/8/8/8 w - - 0 1",
+   "type": "mate3",
+   "genTier": 5,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t3-01-scgv",
+   "fen": "8/8/8/8/4N3/8/3B4/5K1k w - - 0 1",
+   "type": "mate2",
+   "genTier": 3,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t4-02-sxmw",
+   "fen": "8/8/8/8/5r2/8/4k3/7K b - - 0 1",
+   "type": "mate2",
+   "genTier": 4,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t5-02-3df9",
+   "fen": "4b3/8/7Q/P4k2/8/2K5/2P3R1/8 w - - 0 1",
+   "type": "mate3",
+   "genTier": 5,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t2-02-73yk",
+   "fen": "6k1/5ppp/8/3b1p2/1P5Q/6B1/7P/4K3 w - - 0 1",
+   "type": "mate1",
+   "genTier": 2,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t4-03-2uae",
+   "fen": "5k1K/8/1R6/8/7R/8/8/8 w - - 0 1",
+   "type": "mate2",
+   "genTier": 4,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t4-04-mtvg",
+   "fen": "8/k7/3KR3/8/4R3/8/8/8 w - - 0 1",
+   "type": "mate2",
+   "genTier": 4,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t3-02-0hs7",
+   "fen": "8/8/8/8/3k1q2/3p4/8/3n2K1 b - - 0 1",
+   "type": "mate2",
+   "genTier": 3,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t3-03-hfwe",
+   "fen": "1k6/ppp5/p7/1q6/R6R/8/2K5/8 w - - 0 1",
+   "type": "mate2",
+   "genTier": 3,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t1-03-40oc",
+   "fen": "8/8/8/8/6rk/5r2/8/7K b - - 0 1",
+   "type": "mate1",
+   "genTier": 1,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t5-03-sim9",
+   "fen": "8/8/8/4r3/8/p7/8/K1k5 b - - 0 1",
+   "type": "mate3",
+   "genTier": 5,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t4-05-7bvf",
+   "fen": "3k4/8/1K4Q1/8/8/8/6P1/8 w - - 0 1",
+   "type": "mate2",
+   "genTier": 4,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t4-06-e3xh",
+   "fen": "6k1/4K3/6BR/8/8/8/8/8 w - - 0 1",
+   "type": "mate2",
+   "genTier": 4,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t3-04-q75l",
+   "fen": "8/k7/pp4P1/1Q6/K2B4/5P2/8/8 w - - 0 1",
+   "type": "mate2",
+   "genTier": 3,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t5-04-bb3f",
+   "fen": "k7/8/3K4/1B1R4/8/8/2P5/8 w - - 0 1",
+   "type": "mate3",
+   "genTier": 5,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t2-03-qx7o",
+   "fen": "8/p1k5/5p2/3p1q2/8/1n6/4PP2/4KR2 b - - 0 1",
+   "type": "mate1",
+   "genTier": 2,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t4-07-aggv",
+   "fen": "8/k7/p2KB3/8/Q7/8/8/8 w - - 0 1",
+   "type": "mate2",
+   "genTier": 4,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t4-08-x18t",
+   "fen": "4K3/7k/8/8/6B1/4Q3/8/8 w - - 0 1",
+   "type": "mate2",
+   "genTier": 4,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t5-05-2oy3",
+   "fen": "2k5/8/3Q4/3K4/8/8/3P4/8 w - - 0 1",
+   "type": "mate3",
+   "genTier": 5,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t4-09-ohwh",
+   "fen": "8/8/8/4r3/7k/8/3r1P2/7K b - - 0 1",
+   "type": "mate2",
+   "genTier": 4,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t5-06-0oz4",
+   "fen": "1R4Q1/2p5/3k1K2/3p4/8/8/8/8 w - - 0 1",
+   "type": "mate3",
+   "genTier": 5,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t5-07-bvji",
+   "fen": "8/8/8/8/1k1r4/4N3/4r3/2K5 b - - 0 1",
+   "type": "mate3",
+   "genTier": 5,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t1-04-o6es",
+   "fen": "k7/2K5/4R3/8/8/8/8/8 w - - 0 1",
+   "type": "mate1",
+   "genTier": 1,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t1-05-z5c0",
+   "fen": "5k2/8/6K1/3N3R/8/8/8/8 w - - 0 1",
+   "type": "mate1",
+   "genTier": 1,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t2-04-wgch",
+   "fen": "8/p2N4/k5b1/P4P2/1K6/8/5Q2/8 w - - 0 1",
+   "type": "mate1",
+   "genTier": 2,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t5-08-fzlo",
+   "fen": "8/8/8/4r3/4k3/8/8/7K b - - 0 1",
+   "type": "mate3",
+   "genTier": 5,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t5-09-jdlr",
+   "fen": "8/4p1p1/8/5k2/5B2/6PP/4bn1K/4r3 b - - 0 1",
+   "type": "mate3",
+   "genTier": 5,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t1-06-9ox0",
+   "fen": "3k4/2ppp3/8/8/8/4P3/4K3/7R w - - 0 1",
+   "type": "mate1",
+   "genTier": 1,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t5-10-yapg",
+   "fen": "8/8/8/3k3q/2p2b2/5P2/4K3/8 b - - 0 1",
+   "type": "mate3",
+   "genTier": 5,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t5-11-usuu",
+   "fen": "7k/2r5/5q2/1p1p2p1/8/8/5P1P/6K1 b - - 0 1",
+   "type": "mate3",
+   "genTier": 5,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t1-07-do50",
+   "fen": "8/8/5P2/8/B7/K1R5/8/k7 w - - 0 1",
+   "type": "mate1",
+   "genTier": 1,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t2-05-ivif",
+   "fen": "7k/7p/2b5/p3r2p/8/8/R4P1P/6K1 b - - 0 1",
+   "type": "mate1",
+   "genTier": 2,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t2-06-q7oz",
+   "fen": "4rk1K/5B2/8/8/4b3/1p6/8/8 b - - 0 1",
+   "type": "mate1",
+   "genTier": 2,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t5-12-bryo",
+   "fen": "8/k2K4/6P1/8/8/3R4/8/8 w - - 0 1",
+   "type": "mate3",
+   "genTier": 5,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t2-07-2ngb",
+   "fen": "6k1/5ppp/8/7b/5P2/8/3R1P2/4K3 w - - 0 1",
+   "type": "mate1",
+   "genTier": 2,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t2-08-icdk",
+   "fen": "4k3/4pp2/8/1r6/4P1R1/8/3R1P2/3K4 w - - 0 1",
+   "type": "mate1",
+   "genTier": 2,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t4-10-6ubh",
+   "fen": "8/8/8/8/5r2/8/4k2K/6r1 b - - 0 1",
+   "type": "mate2",
+   "genTier": 4,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t2-09-gk1r",
+   "fen": "5k2/4ppp1/8/BQ6/8/P7/1PK2P2/8 w - - 0 1",
+   "type": "mate1",
+   "genTier": 2,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t2-10-xpt4",
+   "fen": "4k3/3ppp2/2p5/8/P7/8/K7/N5Q1 w - - 0 1",
+   "type": "mate1",
+   "genTier": 2,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t4-11-mfe7",
+   "fen": "5k2/8/4B3/6K1/6Q1/8/8/8 w - - 0 1",
+   "type": "mate2",
+   "genTier": 4,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t1-08-kal2",
+   "fen": "5k2/4ppp1/8/2Q3N1/8/8/8/2K5 w - - 0 1",
+   "type": "mate1",
+   "genTier": 1,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t2-11-quy2",
+   "fen": "6k1/5ppp/5Q2/3N4/P7/1P6/2K5/8 w - - 0 1",
+   "type": "mate1",
+   "genTier": 2,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t1-09-cnwg",
+   "fen": "8/8/6p1/8/2r5/3p4/7r/4K1k1 b - - 0 1",
+   "type": "mate1",
+   "genTier": 1,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t2-12-nugu",
+   "fen": "b7/1k6/q5p1/1p6/8/5PQ1/3PPP2/4K3 b - - 0 1",
+   "type": "mate1",
+   "genTier": 2,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t4-12-opd3",
+   "fen": "K7/8/8/2k5/3q4/8/8/8 b - - 0 1",
+   "type": "mate2",
+   "genTier": 4,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t1-10-wlq1",
+   "fen": "2k5/8/2K5/3Q4/8/8/8/8 w - - 0 1",
+   "type": "mate1",
+   "genTier": 1,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t1-11-3jns",
+   "fen": "3Q1K1k/8/8/8/8/8/8/8 w - - 0 1",
+   "type": "mate1",
+   "genTier": 1,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t1-12-2gcj",
+   "fen": "1k6/1B6/1PK5/4N3/8/8/8/8 w - - 0 1",
+   "type": "mate1",
+   "genTier": 1,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t3-05-blwf",
+   "fen": "4k3/3pppr1/8/8/P2P4/1P6/5K1R/5R2 w - - 0 1",
+   "type": "mate2",
+   "genTier": 3,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t3-06-9kvx",
+   "fen": "1k6/r1p5/8/Q7/7p/2P1PB2/1K5P/8 w - - 0 1",
+   "type": "mate2",
+   "genTier": 3,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t3-07-0g70",
+   "fen": "6k1/6p1/1Q6/8/1Pp5/8/3PK3/R7 w - - 0 1",
+   "type": "mate2",
+   "genTier": 3,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t3-08-16sh",
+   "fen": "8/2p5/Bk6/8/8/3QK3/2P5/8 w - - 0 1",
+   "type": "mate2",
+   "genTier": 3,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t3-09-2stl",
+   "fen": "5k2/1n2ppp1/5R2/8/5P2/Q5P1/8/7K w - - 0 1",
+   "type": "mate2",
+   "genTier": 3,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t3-10-4wws",
+   "fen": "8/4k3/3p4/2p3p1/3B4/r5q1/1P6/1K6 b - - 0 1",
+   "type": "mate2",
+   "genTier": 3,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t3-11-y44s",
+   "fen": "8/8/5b2/8/4k3/7K/1B4P1/5q2 b - - 0 1",
+   "type": "mate2",
+   "genTier": 3,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  },
+  {
+   "id": "orig-t3-12-w45t",
+   "fen": "6k1/6p1/8/5Q2/3p4/8/4K3/4R3 w - - 0 1",
+   "type": "mate2",
+   "genTier": 3,
+   "origin": "original position, constructed by scripts/generate-puzzles.js"
+  }
+ ]
+}

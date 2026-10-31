@@ -6,13 +6,16 @@
   "scripts": {
     "dev": "concurrently -k -n server,web -c green,cyan \"node --watch server/index.js\" \"vite --host\"",
     "dev:web": "vite --host",
-    "build": "vite build",
-    "start": "vite build && node server/index.js --prod",
+    "build": "node scripts/verify-puzzles.js && vite build",
+    "start": "npm run build && node server/index.js --prod",
     "serve": "node server/index.js --prod",
     "booth": "npm start",
     "preview": "vite preview",
     "lint": "oxlint src server shared scripts",
-    "song": "node scripts/midi-to-song.js"
+    "song": "node scripts/midi-to-song.js",
+    "puzzles": "node scripts/verify-puzzles.js",
+    "puzzles:generate": "node scripts/generate-puzzles.js",
+    "puzzles:pgn": "node scripts/pgn-to-puzzle.js"
   },
   "dependencies": {
     "@fontsource-variable/bricolage-grotesque": "^5.3.0",
@@ -21,6 +24,7 @@
     "@photo-sphere-viewer/core": "^5.15.1",
     "@photo-sphere-viewer/markers-plugin": "^5.15.1",
     "@photo-sphere-viewer/virtual-tour-plugin": "^5.15.1",
+    "chess.js": "^1.4.0",
     "d3-geo": "^3.1.1",
     "express": "^5.3.0",
     "framer-motion": "^14.3.0",

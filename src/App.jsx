@@ -22,6 +22,11 @@ const TourControllerPage = lazy(() => import('./pages/TourControllerPage.jsx'))
 const StreetViewTestPage = lazy(() => import('./pages/StreetViewTestPage.jsx'))
 // Raga Tiles: the laptop only shows a QR code; the game itself is the separate /tiles page (tiles.html).
 const TilesQrPage = lazy(() => import('./pages/TilesQrPage.jsx'))
+// India & Chess (the puzzle challenge itself is the separate /chess/puzzles page, chess-puzzles.html).
+const ChessPage = lazy(() => import('./pages/ChessPage.jsx'))
+
+// A phone (touch, small screen) visiting a page: never show the booth's attract mode on it.
+const IS_PHONE = typeof window !== 'undefined' && window.matchMedia?.('(pointer: coarse)').matches && Math.min(window.innerWidth, window.innerHeight) < 600
 
 // Pages driven by a phone: no attract mode, and Reset stays on the page (back to its start screen).
 const PHONE_PAGES = ['/football', '/tour']
@@ -32,7 +37,7 @@ function Shell() {
   const { reset, resetKey } = useVisitor()
   // During a match or tour the laptop gets no mouse/keyboard input (visitors use phones): no attract mode there.
   const onPhonePage = PHONE_PAGES.includes(location.pathname)
-  const idle = useIdle(BOOTH.idleSeconds, !onPhonePage)
+  const idle = useIdle(BOOTH.idleSeconds, !onPhonePage && !IS_PHONE)
 
   // Reset = new visitor. On the football page it ends the match and goes back to its lobby;
   // on the tour page it leaves the 360° view and goes back to the map of places.
@@ -89,6 +94,14 @@ function Shell() {
                   element={
                     <Suspense fallback={null}>
                       <TourPage />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="/chess"
+                  element={
+                    <Suspense fallback={null}>
+                      <ChessPage />
                     </Suspense>
                   }
                 />

@@ -13,6 +13,7 @@ import { BUTTONS, EV, PHASES, SLOTS } from '../shared/protocol.js'
 import { getLanIp, listIPv4 } from './network.js'
 import { Room } from './room.js'
 import { setupTour } from './tour.js'
+import { setupChess } from './chess.js'
 
 // SERVER_PORT, not PORT: tools and hosting setups often set PORT for other programs
 const PORT = Number(process.env.SERVER_PORT) || 3000
@@ -26,6 +27,9 @@ const io = new Server(http, { pingInterval: 5000, pingTimeout: 8000 })
 const room = new Room()
 
 // ---------------------------------------------------------------- HTTP
+// chess Puzzle Challenge: today's top solvers (before the page routes below)
+setupChess(app, root)
+
 app.get('/api/connection-info', (_req, res) => {
   res.json({ ip: getLanIp(), port: PORT, addresses: listIPv4() })
 })
@@ -37,6 +41,7 @@ if (PROD) {
   }
   // the phone piano game is a separate small page, not part of the single-page app
   app.get(['/tiles', '/tiles/'], (_req, res) => res.sendFile(path.join(dist, 'tiles.html')))
+  app.get(['/chess/puzzles', '/chess/puzzles/'], (_req, res) => res.sendFile(path.join(dist, 'chess-puzzles.html')))
   app.use(express.static(dist, { index: false }))
   // single-page app: every other GET (e.g. /controller, /football) gets index.html
   app.use((req, res, next) => (req.method === 'GET' ? res.sendFile(path.join(dist, 'index.html')) : next()))

@@ -25,3 +25,6 @@ dist-ssr
 
 # Local Claude Code preview config
 .claude/
+
+# runtime data written by the booth server (chess leaderboard)
+/data/
